@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.gestiondeventasonlinestore_dany">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GestionDeVentasOnlineSTORE_DANY">
+
+        <!-- 1. ESTA ES LA ÚNICA QUE DEBE TENER EL INTENT-FILTER PARA ARRANCAR -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 2. MainActivity NO debe tener el intent-filter si usas Splash -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".DatosPersonalesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".CarroComprasActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PedidoActivity"
+            android:exported="false" />
+
+    </application>
+</manifest>
+
+

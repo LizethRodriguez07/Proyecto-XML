@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Gestion de Ventas Online STORE_DANY</string>
+    <string name="catalog">Catalogo</string>
+    <string name="product_selection">Selec_Producto</string>
+    <string name="Bienvenidos">¡HOLA!\nMucho gusto, me presento, mi nombre es Katherine Rodriguez, propietaria, en orgullo de invitarlos a mi negocio STORE DANY, al acceder y utilizar este sitio web/servicio, usted acepta cumplir y estar sujeto a los siguientes términos y condiciones.\n\nPresento brindarles sobre el negocio online, llamado \"STORE DANY\", identificado como venta de Calzado para Hombre, nuestra marcas más top de nuestro entorno comercial a calificar tendencia como son (Adidas, Nike, New Balance, Puma y Resbook).\n\nComo principal fuente, esta página web online, identificada como (Gestión de ventas online), esta con el propósito de brindarle asesoría de nuestros productos, con nuestras mejores marcas entre estilos, generando innovar y satisfacer a nuestros clientes con nuestra atención.</string>
+    <string name="accept">Aceptar</string>
+    <string name="termin_condic">Terminos y Condiciones</string>
+    <string name="etNombre">Ingresa tu Nombre</string>
+    <string name="idcedula">Cédula</string>
+    <string name="phone">Celular</string>
+    <string name="email">Email</string>
+    <string name="municipio">Municipio</string>
+    <string name="departamento">Departamento</string>
+    <string name="direccion">Dirección</string>
+    <string name="btnenviar">Enviar Datos</string>
+    <string name="btenviardatos">Enviar Datos</string>
+    <string name="title_activity_ingreso_datos">Ingreso_Datos</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="etinombre">Nombre</string>
+    <string name="etapellidos">Apellidos</string>
+    <string name="imgbasedatos">Registro</string>
+    <string name="acuerdo">A continuación, es fundamental que este acuerdo sea visible y accesible para asegurar su validez, comúnmente mediante casillas de (ACEPTAR)</string>
+    <string name="inf_cat_logo">INF.CATÁLOGO</string>
+    <string name="Descripcion_1">El propósitos de esta información tiene el objetivo de presentarles a mi compañera Lizeth, la cual va a estar acompañándolo, apoyando, instrumentando a gestionar su compra Online, por medio de este sitio web, lo que determina que es caso de dudas e inquietudes en caso de nuestro portafolio de productos o pagos, se pueden contactar por medio del Chat Online</string>
+    <string name="Descripcion_2">STORE DANY, es un negocio la cual es destinada a la venta de calzado para hombre, cuenta con la marcas mas top en el marcado a nivel de nuestro reconocimiento Chucureño, siendo asi se exhiben marcas (Nike, Adidas, Puma, New Balance y Reebok).</string>
+    <string name="nomproducto"> NIKE AIR TRAINER</string>
+    <string name="nomdescripcion"> COLOR: blanco, negro, gris y detalles verde encendido, TALLA 42</string>
+    <string name="nomprecio">$380.000</string>
+    <string name="nombreprodc">NIKE AIR TRAINER</string>
+</resources>
