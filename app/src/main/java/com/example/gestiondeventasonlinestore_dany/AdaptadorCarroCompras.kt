@@ -21,6 +21,8 @@ class AdaptadorCarroCompras(
         // AGREGAMOS LA IMAGEN
         val imagen: ImageView = itemView.findViewById(R.id.imageView2)
         val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
+        val tvTallaSeleccionada: TextView = itemView.findViewById(R.id.tvTallaSeleccionada)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,26 +39,24 @@ class AdaptadorCarroCompras(
 
         holder.nomProducto.text = producto.nomProducto
         holder.nomdescripcion.text = producto.descripcion
-        // Formateamos el precio para que se vea con puntos de miles
         holder.nomprecio.text = "$ ${String.format("%,.0f", producto.precio)}"
-
-        // PONEMOS LA IMAGEN
         holder.imagen.setImageResource(producto.imagen)
 
+        holder.tvTallaSeleccionada.text = "Talla: ${producto.tallaSeleccionada}"
+
         holder.btnEliminar.setOnClickListener {
-            // Borramos el producto de la lista interna
-            carroCompras.removeAt(holder.adapterPosition)
-            // Avisamos al adaptador que ese ítem ya no está
-            notifyItemRemoved(holder.adapterPosition)
-            notifyItemRangeChanged(holder.adapterPosition, carroCompras.size)
-            // Actualizamos el total de la pantalla automáticamente
-            actualizarTotal()
+
+            val currentPosition = holder.adapterPosition
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                carroCompras.removeAt(currentPosition)
+                notifyItemRemoved(currentPosition)
+                notifyItemRangeChanged(currentPosition, carroCompras.size)
+                actualizarTotal()
+            }
         }
     }
 
     override fun getItemCount(): Int = carroCompras.size
-
-    // Esta función la llamaremos desde la Activity mejor para que sea más eficiente
     fun actualizarTotal() {
         var acumulado = 0.0
         carroCompras.forEach {

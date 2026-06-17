@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import java.util.ArrayList
@@ -62,28 +64,45 @@ class AdaptadorProducto(
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        if (carroCompras.contains(producto)) {
-            holder.btnAdd.text = "Añadido"
-            holder.btnAdd.isEnabled = false
+        val estaEnCarrito = carroCompras.any { it.nomProducto == producto.nomProducto }
+        if (estaEnCarrito) {
+            configurarBotonQuitar(holder.btnAdd)
         } else {
-            holder.btnAdd.text = "Añadir"
-            holder.btnAdd.isEnabled = true
+            configurarBotonAnadir(holder.btnAdd)
         }
 
         // botón de Añadir
         holder.btnAdd.setOnClickListener {
-            val yaEstaEnCarrito = carroCompras.any{it.nomProducto == producto.nomProducto}
+            val indiceExistente = carroCompras.indexOfFirst { it.nomProducto == producto.nomProducto }
 
-            if (!yaEstaEnCarrito) {
+            if (indiceExistente != -1) {
+                // Si ya existe, lo removemos de la lista de compras
+                carroCompras.removeAt(indiceExistente)
+                configurarBotonAnadir(holder.btnAdd)
+                Toast.makeText(context, "${producto.nomProducto} removido del carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                // Si no existe, lo agregamos al carrito
                 carroCompras.add(producto)
-
-                holder.btnAdd.text = "Añadido"
-                holder.btnAdd.isEnabled = false
-
-                onCartUpdated(carroCompras.size)
+                configurarBotonQuitar(holder.btnAdd)
+                Toast.makeText(context, "${producto.nomProducto} añadido (Talla: ${producto.tallaSeleccionada})", Toast.LENGTH_SHORT).show()
             }
+            onCartUpdated(carroCompras.size)
         }
     }
 
     override fun getItemCount(): Int = listaProducto.size
+
+    private fun configurarBotonAnadir(button: MaterialButton) {
+        button.text = "Añadir"
+        button.setTextColor(android.graphics.Color.parseColor("#D4AF37"))
+        button.setIconResource(android.R.drawable.ic_input_add)
+        button.iconTint = ContextCompat.getColorStateList(context, android.R.color.transparent) // Deja que el color base actúe
+    }
+
+    private fun configurarBotonQuitar(button: MaterialButton) {
+        button.text = "Quitar"
+        button.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
+        button.setIconResource(android.R.drawable.ic_delete)
+        button.iconTint = ContextCompat.getColorStateList(context, android.R.color.transparent)
+    }
 }

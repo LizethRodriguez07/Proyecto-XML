@@ -11,9 +11,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnComenzar">
+        app:layout_constraintBottom_toTopOf="@+id/chkTerminos">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,36 +23,75 @@
             android:orientation="vertical"
             android:gravity="center">
 
-    <!-- Logo de STORE DANY -->
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/logotipo"/>
+        <!-- Logo de STORE DANY -->
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/logotipo"/>
 
-        <!-- Tu texto de Bienvenidos desde strings.xml -->
+        <!-- Titulo -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="STORE DANY"
+            android:textColor="#D4AF37"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.01"/>
+
+        <!-- tarjeta con el texto de bienvenida -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/Bienvenidos"
-            android:textColor="#FFFFFF"
-            android:textSize="17sp"
-            android:lineSpacingExtra="6dp"
-            android:gravity="center"
-            android:paddingBottom="20dp" />
-    </LinearLayout>
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="8dp"
+            app:cardBackgroundColor="#1AFFFFFF"
+            app:cardCornerRadius="16dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#33FFFFFF">
+
+            <!-- Texto de Bienvenidos desde strings.xml -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:lineSpacingExtra="8dp"
+                android:text="@string/Bienvenidos"
+                android:textColor="#E0E0E0"
+                android:textSize="16sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/chkTerminos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="8dp"
+        android:text="Acepto los términos, condiciones y asesoría comercial"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:buttonTint="#D4AF37"
+        app:layout_constraintBottom_toTopOf="@+id/btnComenzar" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnComenzar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="ENTRAR A LA TIENDA"
+        android:layout_height="56dp"
+        android:text="Inicio STORE DANY"
         android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:cornerRadius="12dp"
+        android:letterSpacing="0.05"
+        app:cornerRadius="16dp"
         android:backgroundTint="#D4AF37"
+        app:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

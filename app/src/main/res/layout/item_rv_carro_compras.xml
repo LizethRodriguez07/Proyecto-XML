@@ -28,16 +28,27 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/niked" />
 
+        <ImageButton
+            android:id="@+id/btnEliminar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            app:tint="#FF5252"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <TextView
             android:id="@+id/nomproducto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:text="Nombre del Producto"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEliminar"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,12 +56,26 @@
             android:id="@+id/nomdescripcion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="Descripción corta"
             android:textColor="#999999"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEliminar"
             app:layout_constraintStart_toStartOf="@+id/nomproducto"
             app:layout_constraintTop_toBottomOf="@+id/nomproducto" />
+
+        <TextView
+            android:id="@+id/tvTallaSeleccionada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Talla: 40"
+            android:textColor="#D4AF37"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/nomproducto"
+            app:layout_constraintTop_toBottomOf="@+id/nomdescripcion" />
 
         <TextView
             android:id="@+id/nomprecio"
@@ -61,17 +86,6 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- BOTÓN DE ELIMINAR AGREGADO AQUÍ -->
-        <ImageButton
-            android:id="@+id/btnEliminar"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@android:drawable/ic_menu_delete"
-            app:tint="#FF5252"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

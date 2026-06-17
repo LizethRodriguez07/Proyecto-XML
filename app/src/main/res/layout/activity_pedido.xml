@@ -8,55 +8,79 @@
     android:background="#000000"
     android:padding="24dp">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnVolverTienda">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
     <!-- Icono de Check Verde (Representa pedido completado) -->
     <ImageView
         android:id="@+id/imgSuccess"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        app:srcCompat="@android:drawable/checkbox_on_background"
-        app:tint="#4CAF50"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tvGracias"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="80dp"
+        app:srcCompat="@android:drawable/button_onoff_indicator_on"
+        app:tint="#4CAF50" />
 
     <TextView
         android:id="@+id/tvGracias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="¡PEDIDO EXITOSO!"
         android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/imgSuccess"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:letterSpacing="0.03" />
 
-    <TextView
-        android:id="@+id/tvSubtitulo"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hemos recibido tu información.\nPronto un asesor te contactará."
-        android:textColor="#BDBDBD"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvGracias"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="8dp"
+        app:cardBackgroundColor="#1AFFFFFF"
+        app:cardCornerRadius="16dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#1AFFFFFF">
 
-    <!-- Botón para reiniciar el flujo -->
+        <TextView
+            android:id="@+id/tvSubtitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:text="Hemos recibido tu información de compra de forma correcta.\n\nTu mensaje de WhatsApp ha sido generado. Muy pronto un asesor comercial se pondrá en contacto contigo para coordinar el pago y envío."
+            android:textColor="#E0E0E0"
+            android:textSize="15sp"
+            android:lineSpacingExtra="6dp"
+            android:gravity="center" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+    </ScrollView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnVolverTienda"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:text="VOLVER AL INICIO"
         android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:cornerRadius="12dp"
+        android:letterSpacing="0.05"
+        app:cornerRadius="16dp"
         android:backgroundTint="#D4AF37"
+        app:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
