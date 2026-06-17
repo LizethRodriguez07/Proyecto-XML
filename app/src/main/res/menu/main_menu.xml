@@ -2,14 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Ítem con icono para el Carrito (se verá arriba si hay espacio) -->
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="Carrito"
+        app:showAsAction="ifRoom" />
+
+    <!-- Sección del Catálogo -->
     <item
         android:id="@+id/action_catalog"
-        android:title="@string/catalog"
+        android:title="Ver Catálogo"
         app:showAsAction="never" />
 
+    <!-- Sección de Datos Personales / Perfil -->
     <item
-       android:id="@+id/action_product_selection"
-        android:title="@string/product_selection"
+        android:id="@+id/action_profile"
+        android:title="Mis Datos"
+        app:showAsAction="never" />
+
+    <!-- Opción para ver Pedidos realizados -->
+    <item
+        android:id="@+id/action_orders"
+        android:title="Mis Pedidos"
         app:showAsAction="never" />
 
 </menu>

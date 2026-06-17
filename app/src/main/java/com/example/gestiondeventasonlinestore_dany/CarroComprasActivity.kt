@@ -21,7 +21,10 @@ class CarroComprasActivity : AppCompatActivity() {
 
         // Recepción segura de datos según la versión de Android
         val listaRecibida = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("lista_carrito", ArrayList::class.java) as? ArrayList<Producto>
+            intent.getSerializableExtra(
+                "lista_carrito",
+                ArrayList::class.java
+            ) as? ArrayList<Producto>
         } else {
             @Suppress("DEPRECATION")
             intent.getSerializableExtra("lista_carrito") as? ArrayList<Producto>
@@ -35,8 +38,11 @@ class CarroComprasActivity : AppCompatActivity() {
         actualizarTotalInicial()
 
         binding.btnIrAPagar.setOnClickListener {
-            val intent = Intent(this, DatosPersonalesActivity::class.java)
-            startActivity(intent)
+            if (carroCompras.isNotEmpty()) {
+                val intent = Intent(this, DatosPersonalesActivity::class.java)
+                // Opcional: Podrías pasar el total a la siguiente pantalla si lo necesitas
+                startActivity(intent)
+            }
         }
     }
 
@@ -48,10 +54,12 @@ class CarroComprasActivity : AppCompatActivity() {
     }
 
     private fun actualizarTotalInicial() {
-        var total = 0.0
-        for (producto in carroCompras) {
-            total += producto.precio
-        }
+        val total = carroCompras.sumOf { it.precio }
         binding.tvTotal.text = "Total a Pagar: $ ${String.format("%,.0f", total)}"
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

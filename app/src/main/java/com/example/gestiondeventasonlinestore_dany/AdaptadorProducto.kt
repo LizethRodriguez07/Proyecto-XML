@@ -72,10 +72,14 @@ class AdaptadorProducto(
 
         // botón de Añadir
         holder.btnAdd.setOnClickListener {
-            if (!carroCompras.contains(producto)) {
+            val yaEstaEnCarrito = carroCompras.any{it.nomProducto == producto.nomProducto}
+
+            if (!yaEstaEnCarrito) {
                 carroCompras.add(producto)
+
                 holder.btnAdd.text = "Añadido"
                 holder.btnAdd.isEnabled = false
+
                 onCartUpdated(carroCompras.size)
             }
         }
