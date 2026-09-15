@@ -51,17 +51,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/carro_total_label"
-                    android:textColor="@color/texto_secundario"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/carro_total_label"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCantidadArticulos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/carro_articulos_conteo"
+                        android:textColor="@color/texto_terciario"
+                        android:textSize="12sp"
+                        tools:text="3 artículo(s)" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvTotal"
@@ -69,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:text="$0"
                     android:textColor="@color/oro"
-                    android:textSize="24sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </LinearLayout>
 

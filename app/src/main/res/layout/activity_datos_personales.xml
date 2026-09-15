@@ -35,182 +35,253 @@
             android:paddingBottom="32dp">
 
             <!-- ===== SECCIÓN 1: DATOS DEL CLIENTE ===== -->
-            <TextView
-                style="@style/TextAppearance.TituloSeccion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/formulario_datos_titulo" />
-
-            <TextView
-                style="@style/TextAppearance.Subtitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/formulario_datos_subtitulo" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/borde" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilNombre"
-                style="@style/Style.CampoTexto"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Style.Tarjeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/etinombre">
+                android:layout_marginBottom="20dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etinombre"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilApellidos"
-                style="@style/Style.CampoTexto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/etapellidos_label">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etapellidos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_persona"
+                            app:tint="@color/oro" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilCedula"
-                style="@style/Style.CampoTexto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/idcedula_label">
+                        <TextView
+                            style="@style/TextAppearance.TituloSeccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/formulario_datos_titulo" />
+                    </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/idcedula"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:digits="0123456789"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        style="@style/TextAppearance.Subtitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/formulario_datos_subtitulo" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilCelular"
-                style="@style/Style.CampoTexto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/phone_label">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:digits="0123456789"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilNombre"
+                            style="@style/Style.CampoTexto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:hint="@string/etinombre"
+                            app:startIconDrawable="@drawable/ic_persona">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilEmail"
-                style="@style/Style.CampoTexto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/email_label">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etinombre"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/texto_principal" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilApellidos"
+                            style="@style/Style.CampoTexto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/etapellidos_label"
+                            app:startIconDrawable="@drawable/ic_persona">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etapellidos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/texto_principal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCedula"
+                            style="@style/Style.CampoTexto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:hint="@string/idcedula_label"
+                            app:startIconDrawable="@drawable/ic_cedula">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/idcedula"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:textColor="@color/texto_principal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCelular"
+                            style="@style/Style.CampoTexto"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/phone_label"
+                            app:startIconDrawable="@drawable/ic_telefono">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/Phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="0123456789"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:textColor="@color/texto_principal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilEmail"
+                        style="@style/Style.CampoTexto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/email_label"
+                        app:startIconDrawable="@drawable/ic_email">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/texto_principal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- ===== SECCIÓN 2: DIRECCIÓN DE ENVÍO ===== -->
-            <TextView
-                style="@style/TextAppearance.TituloSeccion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/formulario_direccion_titulo" />
-
-            <TextView
-                style="@style/TextAppearance.Subtitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/formulario_direccion_subtitulo" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/borde" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilDepartamento"
-                style="@style/Style.CampoTexto"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Style.Tarjeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/departamento_label"
-                app:endIconMode="dropdown_menu">
+                android:layout_marginBottom="24dp">
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spDepartamento"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilMunicipio"
-                style="@style/Style.CampoTexto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/municipio_label"
-                app:endIconMode="dropdown_menu">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spMunicipio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ubicacion"
+                            app:tint="@color/oro" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilDireccion"
-                style="@style/Style.CampoTexto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:hint="@string/direccion_detallada_label">
+                        <TextView
+                            style="@style/TextAppearance.TituloSeccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/formulario_direccion_titulo" />
+                    </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etdireccion_completa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
-                    android:maxLines="3"
-                    android:minHeight="72dp"
-                    android:textColor="@color/texto_principal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        style="@style/TextAppearance.Subtitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/formulario_direccion_subtitulo" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDepartamento"
+                        style="@style/Style.CampoTexto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/departamento_label"
+                        app:endIconMode="dropdown_menu"
+                        app:startIconDrawable="@drawable/ic_ubicacion">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/spDepartamento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/texto_principal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilMunicipio"
+                        style="@style/Style.CampoTexto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/municipio_label"
+                        app:endIconMode="dropdown_menu"
+                        app:startIconDrawable="@drawable/ic_ciudad">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/spMunicipio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/texto_principal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDireccion"
+                        style="@style/Style.CampoTexto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/direccion_detallada_label"
+                        app:startIconDrawable="@drawable/ic_casa">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etdireccion_completa"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:maxLines="3"
+                            android:minHeight="72dp"
+                            android:textColor="@color/texto_principal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btenviardatos"

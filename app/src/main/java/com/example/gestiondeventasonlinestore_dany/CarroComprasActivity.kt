@@ -96,6 +96,10 @@ class CarroComprasActivity : AppCompatActivity() {
             R.string.moneda_formato,
             String.format("%,.0f", total)
         )
+        binding.tvCantidadArticulos.text = getString(
+            R.string.carro_articulos_conteo,
+            carroCompras.sumOf { it.cantidad }
+        )
 
         if (carroCompras.isEmpty()) {
             binding.btnIrAPagar.isEnabled = false

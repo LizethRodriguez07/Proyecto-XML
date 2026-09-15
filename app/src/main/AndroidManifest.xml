@@ -45,6 +45,14 @@
             android:name=".MisPedidosActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".AyudaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AcercaDeActivity"
+            android:exported="false" />
+
     </application>
 </manifest>
 

@@ -11,17 +11,20 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 ## Características principales
 
 - **Pantalla de bienvenida (Splash) rediseñada:** logo con animación de entrada, tarjeta de bienvenida con mensaje de la propietaria, enlace para consultar los términos y condiciones completos y casilla de aceptación obligatoria (el botón "INICIO STORE DANY" solo se activa al aceptar).
-- **Términos y Condiciones:** pantalla dedicada (`TerminosCondicionesActivity`) con 10 cláusulas numeradas formateadas en HTML, barra de herramientas con flecha atrás y botones Aceptar/Cancelar. Al regresar a la pantalla de bienvenida, la casilla se marca automáticamente si se aceptó.
-- **Catálogo de productos:** lista de calzado (Nike Air Trainer, Adidas Forum, Puma Street, New Balance 1300) con imagen, marca, descripción, precio en pesos colombianos y selector de tallas (37–42).
+- **Términos y Condiciones:** pantalla dedicada (`TerminosCondicionesActivity`) con aviso formal de aceptación e 10 cláusulas numeradas en tarjetas (aceptación, servicio, asesoría, catálogo, proceso de compra, precios, envíos, datos personales conforme a la Ley 1581 de 2012, contacto y respaldo/garantía), barra de herramientas con flecha atrás y botones Aceptar/Cancelar. Al regresar a la pantalla de bienvenida, la casilla se marca automáticamente si se aceptó.
+- **Catálogo de productos:** lista de calzado (Nike Air Trainer, Adidas Forum, Puma Street, New Balance 1300 y Reebok Classic) con imagen, marca, descripción, precio en pesos colombianos y selector de tallas (37–42).
+- **Cabecera destacada del catálogo:** tarjeta hero con monograma de la marca, título/subtítulo y contador de unidades en el carrito que se muestra dinámicamente al agregar productos.
 - **Búsqueda y filtros por marca:** campo de búsqueda por nombre y chips (Todos, Nike, Adidas, Puma, New Balance, Reebok) que filtran el catálogo en tiempo real, con aviso "sin resultados".
 - **Menú lateral (Navigation Drawer):** acceso al catálogo, carrito, pedidos, datos personales, ayuda y acerca de; con cabecera de la tienda.
 - **Carrito de compras completo:** cada producto muestra imagen, marca, talla editable, precio unitario, control de cantidad (−/+) y subtotal por línea, con contador en tiempo real, eliminación de ítems y total a pagar calculado automáticamente.
 - **Gestión de tallas y cantidades:** cambiar la talla desde el carrito y fusiona automáticamente líneas del mismo producto y talla.
-- **Mis pedidos:** pantalla con estado inicial vacío (la persistencia de pedidos está prevista en el roadmap).
-- **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). El formulario se organiza en dos secciones (datos del cliente y dirección de envío) con selectores desplegables para departamento y municipio.
+- **Mis pedidos:** pantalla con estado inicial vacío rediseñado (tarjeta centrada con icono, mensaje y acceso directo al catálogo); la persistencia de pedidos está prevista en el roadmap.
+- **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). El formulario se organiza en tarjetas por secciones (datos del cliente y dirección de envío), con campos en filas de dos columnas, iconos identificativos en cada campo y selectores desplegables para departamento y municipio. La selección de departamento/municipio se conserva al rotar la pantalla.
 - **Perfil de cliente persistente:** los datos ingresados se guardan localmente (SharedPreferences) y autocompletan los formularios futuros; el ítem "Mi Perfil" del menú permite crearlos o editarlos antes de comprar.
 - **Confirmación de pedido:** pantalla de éxito con mensaje de agradecimiento y botón para volver al inicio (reinicia la navegación y limpia el carrito).
-- **Diseño premium:** interfaz oscura con acentos dorados, fondos negros, tarjetas Material con bordes redondeados y componentes Material Components (MaterialButton, MaterialCardView, TextInputLayout, MaterialCheckBox, MaterialToolbar).
+- **Ayuda y asesoría (pantalla dedicada):** canales de atención directa con acciones funcionales (llamada telefónica vía `tel:` y WhatsApp vía `wa.me`), horario de atención con indicador dinámico "Abierto/Cerrado ahora" según día y hora, punto de venta físico y preguntas frecuentes.
+- **Acerca de (pantalla dedicada):** hero de bienvenida de la propietaria con monograma de la marca, tarjetas de Misión y Visión, ubicación del negocio y versión.
+- **Diseño premium:** interfaz oscura con acentos dorados, fondos negros, tarjetas Material con bordes redondeados (ítems de catálogo y carrito con imagen destacada, divisor y fila Talla/Precio), menú lateral con icono de hamburguesa dorado y de mayor grosor, y componentes Material Components (MaterialButton, MaterialCardView, TextInputLayout, MaterialCheckBox, MaterialToolbar).
 
 ## Stack tecnológico
 
@@ -83,6 +86,8 @@ app/src/main/java/com/example/gestiondeventasonlinestore_dany/
 ├── DatosPersonalesActivity.kt    # Formulario de compra y perfil (modo perfil)
 ├── PedidoActivity.kt             # Confirmación de pedido
 ├── MisPedidosActivity.kt         # Borrador de pedidos (estado vacío)
+├── AyudaActivity.kt              # Canales de atención, horario dinámico y FAQ
+├── AcercaDeActivity.kt           # Hero de bienvenida + Misión y Visión
 ├── Producto.kt                   # Modelo del producto
 ├── Cliente.kt                    # Modelo del cliente/perfil
 ├── RepositorioPerfil.kt          # Persistencia del perfil (SharedPreferences/JSON)
@@ -154,6 +159,8 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 - [x] Búsqueda y filtros por marca en el catálogo (quedan pendientes los filtros por talla y favoritos).
 - [x] Rediseño del procedimiento de Términos y Condiciones (pantalla dedicada con 10 cláusulas y aceptación obligatoria).
 - [x] Perfil de cliente persistente (SharedPreferences) con autocompletado y selector de departamento/municipio en cascada con validaciones.
+- [x] Pulido del catálogo y del carrito (tarjetas aireadas) y cabecera hero con contador de unidades; incorporación del producto Reebok Classic.
+- [x] Diseño del estado vacío de Mis Pedidos y persistencia de la selección de ubicación al rotar el formulario.
 - [x] Adopción de ViewBinding en toda la app y limpieza del código muerto de la plantilla login (`data/`, `catalogo.xml`).
 
 **Corto plazo**

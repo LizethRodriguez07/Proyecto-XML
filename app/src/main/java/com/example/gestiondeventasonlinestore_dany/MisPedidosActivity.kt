@@ -15,6 +15,10 @@ class MisPedidosActivity : AppCompatActivity() {
 
         binding.root.ajustarBarrasSistema()
 
+        binding.toolbarPedidos.setNavigationOnClickListener {
+            finish()
+        }
+
         binding.btnVolverPedidos.setOnClickListener {
             finish()
         }

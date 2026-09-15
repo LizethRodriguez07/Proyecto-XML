@@ -63,6 +63,7 @@ class DatosPersonalesActivity : AppCompatActivity() {
         setupSelectores()
         limpiarErroresAlEscribir()
         cargarPerfil()
+        restaurarSeleccion(savedInstanceState)
 
         // 3. Lógica del botón
         binding.btenviardatos.setOnClickListener {
@@ -128,6 +129,29 @@ class DatosPersonalesActivity : AppCompatActivity() {
         binding.spMunicipio.setOnItemClickListener { _, _, position, _ ->
             municipioActual = municipios[position]
             binding.tilMunicipio.error = null
+        }
+    }
+
+    // ===================== PERSISTENCIA DE ESTADO =====================
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("departamento_actual", departamentoActual)
+        outState.putString("municipio_actual", municipioActual)
+    }
+
+    private fun restaurarSeleccion(estado: Bundle?) {
+        val dep = estado?.getString("departamento_actual") ?: return
+        if (dep !in departamentos) return
+
+        departamentoActual = dep
+        binding.spDepartamento.setText(dep)
+        cargarMunicipios()
+
+        val mun = estado.getString("municipio_actual")
+        if (mun != null && departamentos[dep]?.contains(mun) == true) {
+            binding.spMunicipio.setText(mun)
+            municipioActual = mun
         }
     }
 

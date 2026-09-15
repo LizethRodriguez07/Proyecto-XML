@@ -12,47 +12,79 @@
 
     <!-- Términos y Condiciones -->
     <string name="terminos_barra">Términos y Condiciones</string>
-    <string name="terminos_titulo">TÉRMINOS Y CONDICIONES</string>
     <string name="aceptar_terminos">ACEPTAR TÉRMINOS</string>
     <string name="cancelar">CANCELAR</string>
-    <string name="terminos_contenido"><![CDATA[
-<b>1. Aceptación de los términos</b><br/><br/>
-Al acceder y utilizar la plataforma de ventas online de <b>STORE DANY</b> aceptas los presentes términos y condiciones. Si no estás de acuerdo, te invitamos a no utilizar el servicio.<br/><br/>
-<b>2. Naturaleza del servicio</b><br/><br/>
-STORE DANY es una tienda especializada en la venta de calzado para hombre. Este aplicativo facilita la asesoría, la selección de productos y la gestión de ventas de forma online.<br/><br/>
-<b>3. Asesoría comercial</b><br/><br/>
-Contamos con asesoría integral. Nuestra asesora <b>Lizeth</b> te acompañará durante el proceso de compra para resolver dudas sobre productos, tallas, pagos y envío.<br/><br/>
-<b>4. Catálogo y disponibilidad</b><br/><br/>
-Las marcas que exhibimos son <b>Nike, Adidas, Puma, New Balance y Reebok</b>. Las imágenes son referenciales y la disponibilidad está sujeta a inventario, la cual se confirma con el asesor comercial.<br/><br/>
-<b>5. Proceso de compra</b><br/><br/>
-• Selecciona tu producto y talla.<br/>
-• Agrégalo al carrito y ajusta las cantidades.<br/>
-• Diligencia correctamente tus datos personales.<br/>
-• Confirma tu pedido; un asesor te contactará para coordinar pago y envío.<br/><br/>
-<b>6. Precios y pagos</b><br/><br/>
-Los precios están expresados en <b>pesos colombianos (COP)</b>. La forma de pago se acuerda con el asesor comercial al momento de la confirmación del pedido.<br/><br/>
-<b>7. Envíos y entrega</b><br/><br/>
-El envío se coordina directamente con el asesor según la dirección registrada. Los tiempos de entrega dependen de la cobertura y de la transportadora.<br/><br/>
-<b>8. Privacidad de tus datos</b><br/><br/>
-Tus datos personales se utilizan exclusivamente para gestionar tu pedido y brindarte atención. No serán compartidos con terceros sin tu consentimiento.<br/><br/>
-<b>9. Contacto</b><br/><br/>
-Para dudas o inquietudes puedes contactar a nuestra asesora <b>Lizeth</b> en horario comercial, o escribir al chat de WhatsApp que estará disponible próximamente.<br/><br/>
-<b>10. Modificaciones</b><br/><br/>
-STORE DANY podrá actualizar estos términos cuando lo considere necesario. Te recomendamos revisarlos periódicamente.
-]]></string>
+    <string name="terminos_aviso">Aviso de aceptación</string>
+    <string name="terminos_intro">"Gracias por elegir STORE DANY. A continuación te presentamos, de forma breve y clara, las condiciones que rigen el uso de la aplicación y tu proceso de compra."</string>
+    <string name="terminos_actualizacion">Última actualización: Septiembre de 2026</string>
+    <string name="terminos_acepto_nota">"Al seleccionar ACEPTAR confirmas que has leído y aceptas estas condiciones."</string>
+
+    <string name="terminos_art1_titulo">Aceptación</string>
+    <string name="terminos_art1_cuerpo">"Al acceder y comprar en STORE DANY aceptas estas condiciones. Si no estás de acuerdo, te invitamos a no utilizar el servicio."</string>
+    <string name="terminos_art2_titulo">Servicio</string>
+    <string name="terminos_art2_cuerpo">"STORE DANY es una tienda online especializada en calzado para hombre, con marcas premium: Nike, Adidas, Puma, New Balance y Reebok."</string>
+    <string name="terminos_art3_titulo">Asesoría comercial</string>
+    <string name="terminos_art3_cuerpo">"Nuestra asesora Lizeth te acompaña durante todo el proceso para resolver dudas sobre productos, tallas, pagos y envío."</string>
+    <string name="terminos_art4_titulo">Catálogo y disponibilidad</string>
+    <string name="terminos_art4_cuerpo">"Las imágenes del catálogo son referenciales. La disponibilidad de cada referencia se confirma al gestionar tu pedido."</string>
+    <string name="terminos_art5_titulo">Proceso de compra</string>
+    <string name="terminos_art5_cuerpo">"Selecciona tu producto y talla, agrégalo al carrito, diligencia tus datos y confirma el pedido. Un asesor te contactará para coordinar el pago y el envío."</string>
+    <string name="terminos_art6_titulo">Precios y pagos</string>
+    <string name="terminos_art6_cuerpo">"Los precios están expresados en pesos colombianos (COP). El método de pago se acuerda con el asesor al confirmar el pedido."</string>
+    <string name="terminos_art7_titulo">Envíos y entrega</string>
+    <string name="terminos_art7_cuerpo">"El envío se coordina con el asesor según la dirección registrada. Los tiempos de entrega dependen de la cobertura de la transportadora."</string>
+    <string name="terminos_art8_titulo">Datos personales</string>
+    <string name="terminos_art8_cuerpo">"Tus datos se utilizan exclusivamente para gestionar tu pedido y brindarte atención. Se mantienen protegidos, en estricta privacidad y conforme a la Ley 1581 de 2012 (Protección de Datos Personales en Colombia); no se comparten con terceros sin tu consentimiento."</string>
+    <string name="terminos_art9_titulo">Contacto y modificaciones</string>
+    <string name="terminos_art9_cuerpo">"Para dudas o inquietudes puedes contactar a nuestra asesora Lizeth en horario comercial. STORE DANY podrá actualizar estas condiciones cuando lo considere necesario."</string>
+    <string name="terminos_art10_titulo">Respaldo y garantía</string>
+    <string name="terminos_art10_cuerpo">"Cada pedido es verificado y gestionado con total seriedad. Toda compra cuenta con respaldo, seguimiento y garantía real desde el momento en que se confirma."</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_open">Abrir menú</string>
     <string name="drawer_close">Cerrar menú</string>
 
     <string name="ayuda_titulo">Ayuda y asesoría</string>
-    <string name="ayuda_mensaje">"¿Necesitas ayuda con tu compra?\n\nPuedes contactar a nuestra asesora Lizeth en horario comercial. En breve activaremos el chat de WhatsApp para recibir tu pedido.\n\n¡Te acompañamos durante todo tu proceso de compra!"</string>
+    <string name="ayuda_subtitulo">Estamos para acompañarte</string>
+    <string name="ayuda_asesoria">Asesoría personalizada</string>
+    <string name="ayuda_asesoria_texto">"Nuestra asesora Lizeth te acompaña en cada paso de tu compra: dudas sobre productos, tallas, disponibilidad, pagos y envío."</string>
+    <string name="ayuda_canales">Canales de atención directa</string>
+    <string name="ayuda_llamar">Llámanos</string>
+    <string name="ayuda_telefono">312 355 5400</string>
+    <string name="ayuda_whatsapp_titulo">WhatsApp</string>
+    <string name="ayuda_whatsapp_desc">Respuesta inmediata</string>
+    <string name="ayuda_horario">Horario de atención</string>
+    <string name="ayuda_horario_texto">Lun - Vie · 8 am - 7 pm</string>
+    <string name="ayuda_abierto">Abierto ahora</string>
+    <string name="ayuda_cerrado">Cerrado ahora</string>
+    <string name="ayuda_punto_fisico">Punto de venta físico</string>
+    <string name="ayuda_direccion">"Calle 8 # 19 - 51, Yariguies 1 · San Vicente de Chucurí, Santander"</string>
+    <string name="ayuda_faq_titulo">Preguntas frecuentes</string>
+    <string name="ayuda_faq1_q">¿Cómo realizo un pedido?</string>
+    <string name="ayuda_faq1_a">"Elige tu producto y talla, agrégalo al carrito, diligencia tus datos y confirma el pedido. Un asesor te contactará para coordinar pago y envío."</string>
+    <string name="ayuda_faq2_q">¿Cómo recibo mi pedido?</string>
+    <string name="ayuda_faq2_a">"El envío se coordina con la asesora según tu dirección registrada. Los tiempos de entrega dependen de la cobertura de la transportadora en tu municipio."</string>
+    <string name="ayuda_faq3_q">¿Qué medios de pago aceptan?</string>
+    <string name="ayuda_faq3_a">"El método de pago se acuerda con la asesora al confirmar tu pedido, de forma segura y verificada."</string>
+    <string name="ayuda_faq4_q">¿Tienen respaldo o garantía?</string>
+    <string name="ayuda_faq4_a">"Sí. Cada compra cuenta con respaldo, seguimiento y garantía real. Escríbenos por WhatsApp o llámanos para gestionar cambios o devoluciones."</string>
 
     <string name="acerca_titulo">Acerca de STORE DANY</string>
-    <string name="acerca_mensaje">"STORE DANY es una tienda dedicada a la venta de calzado para hombre, con las marcas más top del mercado: Nike, Adidas, Puma, New Balance y Reebok.\n\nVersión 1.0\nDesarrollado con pasión por Katherine Rodríguez y su equipo."</string>
+    <string name="acerca_subtitulo">Nuestra marca y compromiso</string>
+    <string name="acerca_monograma">SD</string>
+    <string name="acerca_bienvenida_titulo">Hola, bienvenidos a STORE DANY</string>
+    <string name="acerca_bienvenida">"Soy Katherine Rodríguez, propietaria, y con orgullo les presento el inicio de nuestro nuevo espacio comercial. Los invito a conocer nuestro buen calzado, que proyecta personalidad y seguridad, con la mejor línea del mercado y una asesoría personalizada en estilos, marcas y las últimas tendencias."</string>
+    <string name="acerca_mision_titulo">Nuestra Misión</string>
+    <string name="acerca_mision">"Somos un negocio con punto físico en el municipio de San Vicente de Chucurí, Santander, dedicado a traer calzado exclusivo de las mejores marcas masculinas. A través de nuestra tienda online buscamos transformar el comercio de la región, ofreciendo una experiencia de compra cómoda, segura y sin salir de casa."</string>
+    <string name="acerca_vision_titulo">Nuestra Visión</string>
+    <string name="acerca_vision">"Convertirnos para el año 2027 en el portal web líder de calzado masculino en Santander, con un sólido reconocimiento a nivel nacional por nuestra exclusividad, innovación digital y el respaldo de confianza que brindamos a cada cliente en cada paso."</string>
+    <string name="acerca_ubicacion">San Vicente de Chucurí, Santander · Colombia</string>
+    <string name="acerca_version">Versión 1.0</string>
+    <string name="acerca_cierre">"Con la pasión de Katherine Rodríguez y su equipo."</string>
 
     <!-- Mis Pedidos -->
     <string name="mis_pedidos_titulo">MIS PEDIDOS</string>
+    <string name="mis_pedidos_vacio_titulo">Sin pedidos por ahora</string>
     <string name="mis_pedidos_vacio">"Aún no tienes pedidos registrados.\n\nCuando realices tu primera compra, podrás ver aquí el historial de tus pedidos."</string>
     <string name="btn_volver">VOLVER</string>
 
@@ -64,10 +96,12 @@ STORE DANY podrá actualizar estos términos cuando lo considere necesario. Te r
     <string name="chip_adidas">Adidas</string>
     <string name="chip_puma">Puma</string>
     <string name="chip_new_balance">New Balance</string>
+    <string name="chip_reebok">Reebok</string>
 
     <!-- Catálogo -->
     <string name="header_titulo">STORE DANY</string>
     <string name="header_subtitulo">Catálogo de calzado para hombre</string>
+    <string name="monograma">SD</string>
     <string name="ver_mi_carrito">VER MI CARRITO</string>
     <string name="main_ver_carrito_conteo">VER MI CARRITO (%1$d)</string>
     <string name="main_mi_carrito_conteo">Mi Carrito (%1$d)</string>
@@ -84,6 +118,7 @@ STORE DANY podrá actualizar estos términos cuando lo considere necesario. Te r
     <string name="carro_titulo">Mi Carrito</string>
     <string name="carro_subtitulo">Resumen de compra</string>
     <string name="carro_total_label">TOTAL A PAGAR</string>
+    <string name="carro_articulos_conteo">%1$d artículo(s)</string>
     <string name="moneda_formato">$%1$s</string>
     <string name="carro_ir_pagar">IR A PAGAR</string>
     <string name="carro_boton_vacio">CARRITO VACÍO</string>
@@ -111,12 +146,12 @@ STORE DANY podrá actualizar estos términos cuando lo considere necesario. Te r
     <string name="perfil_titulo">Mi Perfil</string>
     <string name="perfil_subtitulo">Tus datos de contacto y envío</string>
     <string name="perfil_guardar">GUARDAR PERFIL</string>
-    <string name="perfil_guardado_msg">"✅ Perfil guardado correctamente"</string>
+    <string name="perfil_guardado_msg">Perfil guardado correctamente</string>
     <string name="formulario_datos_titulo">Datos del cliente</string>
     <string name="formulario_datos_subtitulo">Información de contacto y facturación</string>
     <string name="formulario_direccion_titulo">Dirección de envío</string>
     <string name="formulario_direccion_subtitulo">Selecciona tu departamento, municipio y escribe la dirección</string>
-    <string name="toast_procesando_pedido">"✅ Procesando pedido de %1$s..."</string>
+    <string name="toast_procesando_pedido">Procesando pedido de %1$s...</string>
     <string name="app_nombre">STORE DANY</string>
     <string name="terminos_subtitulo">Contrato de uso de la tienda</string>
 

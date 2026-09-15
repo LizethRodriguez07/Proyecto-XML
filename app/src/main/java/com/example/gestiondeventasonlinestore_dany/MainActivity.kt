@@ -1,22 +1,19 @@
 package com.example.gestiondeventasonlinestore_dany
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.view.GravityCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gestiondeventasonlinestore_dany.databinding.ActivityMainBinding
-import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -127,7 +124,13 @@ class MainActivity : AppCompatActivity() {
             R.string.drawer_open,
             R.string.drawer_close
         )
-        toggle.drawerArrowDrawable.color = Color.parseColor("#D4AF37")
+        val flechaMenu = DrawerArrowDrawable(this).apply {
+            color = Color.parseColor("#D4AF37")
+            setBarThickness(9f)
+            setBarLength(72f)
+            setGapSize(15f)
+        }
+        toggle.drawerArrowDrawable = flechaMenu
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -157,17 +160,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_ayuda -> {
-                    mostrarDialogo(
-                        getString(R.string.ayuda_titulo),
-                        getString(R.string.ayuda_mensaje)
-                    )
+                    startActivity(Intent(this, AyudaActivity::class.java))
                 }
 
                 R.id.nav_acerca -> {
-                    mostrarDialogo(
-                        getString(R.string.acerca_titulo),
-                        getString(R.string.acerca_mensaje)
-                    )
+                    startActivity(Intent(this, AcercaDeActivity::class.java))
                 }
 
                 else -> {}
@@ -195,6 +192,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.chipAdidas -> "Adidas"
                 R.id.chipPuma -> "Puma"
                 R.id.chipNewBalance -> "New Balance"
+                R.id.chipReebok -> "Reebok"
                 else -> null
             }
             aplicarFiltros()
@@ -225,6 +223,10 @@ class MainActivity : AppCompatActivity() {
     private fun actualizarContadorCarrito() {
         val unidades = carroCompras.sumOf { it.cantidad }
         binding.btnVerCarrito.text = getString(R.string.main_ver_carrito_conteo, unidades)
+
+        binding.tvContadorBanner.text = unidades.toString()
+        binding.contadorBannerCard.visibility =
+            if (unidades > 0) android.view.View.VISIBLE else android.view.View.GONE
 
         val itemCarrito = binding.navView.menu.findItem(R.id.nav_carrito)
         itemCarrito?.title = if (carroCompras.isEmpty()) {
@@ -272,6 +274,15 @@ class MainActivity : AppCompatActivity() {
                 R.drawable.new6
             )
         )
+        listaproductos.add(
+            Producto(
+                "REEBOK CLASSIC",
+                "Reebok",
+                "Tallas: 37-42. Blanco/Verde",
+                300000.0,
+                R.drawable.zapatos
+            )
+        )
 
         aplicarFiltros()
     }
@@ -284,20 +295,6 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("lista_carrito", carroCompras)
             carroLauncher.launch(intent)
         }
-    }
-
-    private fun mostrarDialogo(titulo: String, mensaje: String) {
-        val view = layoutInflater.inflate(R.layout.dialog_mensaje, null)
-        view.findViewById<TextView>(R.id.tvTituloDialogo).text = titulo
-        view.findViewById<TextView>(R.id.tvMensajeDialogo).text = mensaje
-
-        val dialog = AlertDialog.Builder(this).setView(view).create()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        view.findViewById<MaterialButton>(R.id.btnCerrarDialogo).setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
