@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
@@ -11,6 +12,10 @@ class DatosPersonalesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_datos_personales)
+
+        findViewById<MaterialToolbar>(R.id.toolbarDatos).setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         // 1. Referencia de los campos
         val etNombre = findViewById<TextInputEditText>(R.id.etinombre)

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_principal" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_catalogo"
+            android:checked="true"
+            android:icon="@drawable/ic_nav_catalogo"
+            android:title="Catálogo" />
+
+        <item
+            android:id="@+id/nav_carrito"
+            android:icon="@drawable/ic_nav_carrito"
+            android:title="Mi Carrito" />
+
+        <item
+            android:id="@+id/nav_pedidos"
+            android:icon="@drawable/ic_nav_pedidos"
+            android:title="Mis Pedidos" />
+
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_nav_perfil"
+            android:title="Mi Perfil" />
+    </group>
+
+    <item android:title="MÁS">
+        <menu>
+            <item
+                android:id="@+id/nav_ayuda"
+                android:icon="@drawable/ic_nav_ayuda"
+                android:title="Ayuda / Contacto" />
+
+            <item
+                android:id="@+id/nav_acerca"
+                android:icon="@drawable/ic_nav_acerca"
+                android:title="Acerca de STORE DANY" />
+        </menu>
+    </item>
+
+</menu>

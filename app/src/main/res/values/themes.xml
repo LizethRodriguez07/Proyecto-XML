@@ -1,12 +1,182 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.GestionDeVentasOnlineSTORE_DANY" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- ============ TEMA BASE (oscuro premium) ============ -->
+    <style name="Base.Theme.GestionDeVentasOnlineSTORE_DANY" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/oro</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryContainer">@color/oro_translucido</item>
+        <item name="colorOnPrimaryContainer">@color/oro</item>
+        <item name="colorSecondary">@color/oro_oscuro</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/texto_principal</item>
+        <item name="colorSurfaceVariant">@color/surface_alta</item>
+        <item name="colorOnSurfaceVariant">@color/texto_secundario</item>
+        <item name="colorOutline">@color/borde</item>
+        <item name="colorOutlineVariant">@color/borde</item>
+        <item name="colorBackground">@color/bg_negro</item>
+        <item name="colorOnBackground">@color/texto_principal</item>
+
+        <item name="colorControlNormal">@color/texto_terciario</item>
+        <item name="colorControlActivated">@color/oro</item>
+        <item name="colorControlHighlight">@color/oro_translucido</item>
+
+        <item name="android:windowBackground">@color/bg_negro</item>
+        <item name="android:statusBarColor">@color/bg_negro</item>
+        <item name="android:navigationBarColor">@color/bg_negro</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:textColorPrimary">@color/texto_principal</item>
+        <item name="android:textColorSecondary">@color/texto_secundario</item>
+        <item name="android:textColorHint">@color/texto_terciario</item>
     </style>
 
     <style name="Theme.GestionDeVentasOnlineSTORE_DANY" parent="Base.Theme.GestionDeVentasOnlineSTORE_DANY" />
+
+    <!-- ============ FORMAS ============ -->
     <style name="RoundedSquare">
         <item name="cornerSize">12dp</item>
     </style>
+
+    <style name="ShapeAppearances.NavItem">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">14dp</item>
+    </style>
+
+    <!-- ============ TIPOGRAFÍA ============ -->
+    <style name="TextAppearance.TituloPantalla">
+        <item name="android:textColor">@color/texto_principal</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="TextAppearance.TituloMarca">
+        <item name="android:textColor">@color/oro</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:fontFamily">sans-serif-condensed-bold</item>
+    </style>
+
+    <style name="TextAppearance.Subtitulo">
+        <item name="android:textColor">@color/texto_secundario</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.SecundarioPequeño">
+        <item name="android:textColor">@color/texto_terciario</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.TituloSeccion">
+        <item name="android:textColor">@color/texto_principal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- ============ BOTONES ============ -->
+    <style name="Style.BotonDorado" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/oro</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="elevation">4dp</item>
+        <item name="rippleColor">@color/oro_oscuro</item>
+    </style>
+
+    <style name="Style.BotonContorno" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/oro</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="android:textColor">@color/oro</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:minHeight">52dp</item>
+    </style>
+
+    <style name="Style.BotonAccion" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/oro</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">44dp</item>
+    </style>
+
+    <!-- ============ TARJETAS ============ -->
+    <style name="Style.Tarjeta" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/borde</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Style.TarjetaResaltada" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/surface_alta</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeColor">@color/oro_oscuro</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- ============ CAMPOS DE TEXTO ============ -->
+    <style name="Style.CampoTexto" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/oro</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="hintTextColor">@color/oro</item>
+        <item name="android:textColorHint">@color/texto_terciario</item>
+        <item name="android:textColor">@color/texto_principal</item>
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+        <item name="boxStrokeErrorColor">@color/error</item>
+        <item name="startIconTint">@color/oro</item>
+        <item name="endIconTint">@color/oro</item>
+    </style>
+
+    <style name="Style.Buscador" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/campo</item>
+        <item name="boxStrokeColor">@color/oro</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="hintTextColor">@color/oro</item>
+        <item name="android:textColorHint">@color/texto_terciario</item>
+        <item name="android:textColor">@color/texto_principal</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="startIconTint">@color/oro</item>
+        <item name="endIconTint">@color/oro</item>
+    </style>
+
+    <!-- ============ CHIPS ============ -->
+    <style name="Style.ChipMarca" parent="Widget.Material3.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background</item>
+        <item name="android:textColor">@color/chip_text</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipStrokeColor">@color/oro</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">24dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+    </style>
+
+    <!-- ============ BARRA DE HERRAMIENTAS ============ -->
+    <style name="Style.ToolbarApp" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/bg_negro</item>
+        <item name="titleTextColor">@color/oro</item>
+        <item name="subtitleTextColor">@color/texto_terciario</item>
+        <item name="navigationIconTint">@color/oro</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.Material3.Dark</item>
+    </style>
+
 </resources>

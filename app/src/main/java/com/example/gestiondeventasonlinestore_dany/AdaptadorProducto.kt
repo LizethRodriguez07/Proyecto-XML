@@ -1,6 +1,7 @@
 package com.example.gestiondeventasonlinestore_dany
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import java.util.ArrayList
@@ -22,13 +22,15 @@ class AdaptadorProducto(
     private val onCartUpdated: (Int) -> Unit
 ): RecyclerView.Adapter<AdaptadorProducto.ViewHolder>() {
 
+    private val tallas = arrayOf("37", "38", "39", "40", "41", "42")
+
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val nomproducto: TextView = itemView.findViewById(R.id.nomproducto)
         val nomdescripcion: TextView = itemView.findViewById(R.id.nomdescripcion)
+        val tvMarca: TextView = itemView.findViewById(R.id.tvMarca)
         val nomprecio: TextView = itemView.findViewById(R.id.nomprecio)
         val imagen: ImageView = itemView.findViewById(R.id.imageView3)
         val btnAdd: MaterialButton = itemView.findViewById(R.id.btn_add_item)
-        // 1. Agregamos el Spinner al ViewHolder
         val spTallas: Spinner = itemView.findViewById(R.id.spTallas)
     }
 
@@ -41,52 +43,77 @@ class AdaptadorProducto(
         val producto = listaProducto[position]
 
         holder.nomproducto.text = producto.nomProducto
+        holder.tvMarca.text = producto.marca
         holder.nomdescripcion.text = producto.descripcion
         holder.nomprecio.text = "$${String.format("%,.0f", producto.precio)}"
         holder.imagen.setImageResource(producto.imagen)
 
         // Configuración del Spinner de Tallas
-        val tallas = arrayOf("37", "38", "39", "40", "41", "42")
         val adapterTallas = ArrayAdapter(context, android.R.layout.simple_spinner_item, tallas)
         adapterTallas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         holder.spTallas.adapter = adapterTallas
 
         holder.spTallas.onItemSelectedListener = null
 
-        // Guardar la talla seleccionada en el objeto producto
+        // Restaurar la talla seleccionada del producto
         val selectedIndex = tallas.indexOf(producto.tallaSeleccionada)
         if (selectedIndex >= 0) holder.spTallas.setSelection(selectedIndex)
 
         holder.spTallas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
                 producto.tallaSeleccionada = tallas[pos]
+                actualizarEstadoBoton(holder, producto)
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        val estaEnCarrito = carroCompras.any { it.nomProducto == producto.nomProducto }
-        if (estaEnCarrito) {
+        holder.btnAdd.setOnClickListener {
+            anadirOQuitar(holder, producto)
+        }
+
+        actualizarEstadoBoton(holder, producto)
+    }
+
+    private fun anadirOQuitar(holder: ViewHolder, producto: Producto) {
+        val indiceExistente = carroCompras.indexOfFirst {
+            it.nomProducto == producto.nomProducto && it.tallaSeleccionada == producto.tallaSeleccionada
+        }
+
+        if (indiceExistente != -1) {
+            // Línea existente: disminuimos la cantidad o la eliminamos
+            val item = carroCompras[indiceExistente]
+            item.cantidad--
+            if (item.cantidad <= 0) {
+                carroCompras.removeAt(indiceExistente)
+            }
+            Toast.makeText(context, "${producto.nomProducto} quitado del carrito", Toast.LENGTH_SHORT).show()
+        } else {
+            // Línea nueva: añadimos una copia con la talla seleccionada
+            carroCompras.add(
+                producto.copy(
+                    tallaSeleccionada = producto.tallaSeleccionada,
+                    cantidad = 1
+                )
+            )
+            Toast.makeText(
+                context,
+                "${producto.nomProducto} añadido (Talla: ${producto.tallaSeleccionada})",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        actualizarEstadoBoton(holder, producto)
+        onCartUpdated(carroCompras.sumOf { it.cantidad })
+    }
+
+    private fun actualizarEstadoBoton(holder: ViewHolder, producto: Producto) {
+        val existe = carroCompras.any {
+            it.nomProducto == producto.nomProducto && it.tallaSeleccionada == producto.tallaSeleccionada
+        }
+        if (existe) {
             configurarBotonQuitar(holder.btnAdd)
         } else {
             configurarBotonAnadir(holder.btnAdd)
-        }
-
-        // botón de Añadir
-        holder.btnAdd.setOnClickListener {
-            val indiceExistente = carroCompras.indexOfFirst { it.nomProducto == producto.nomProducto }
-
-            if (indiceExistente != -1) {
-                // Si ya existe, lo removemos de la lista de compras
-                carroCompras.removeAt(indiceExistente)
-                configurarBotonAnadir(holder.btnAdd)
-                Toast.makeText(context, "${producto.nomProducto} removido del carrito", Toast.LENGTH_SHORT).show()
-            } else {
-                // Si no existe, lo agregamos al carrito
-                carroCompras.add(producto)
-                configurarBotonQuitar(holder.btnAdd)
-                Toast.makeText(context, "${producto.nomProducto} añadido (Talla: ${producto.tallaSeleccionada})", Toast.LENGTH_SHORT).show()
-            }
-            onCartUpdated(carroCompras.size)
         }
     }
 
@@ -94,15 +121,23 @@ class AdaptadorProducto(
 
     private fun configurarBotonAnadir(button: MaterialButton) {
         button.text = "Añadir"
-        button.setTextColor(android.graphics.Color.parseColor("#D4AF37"))
+        button.setTextColor(context.getColor(R.color.black))
         button.setIconResource(android.R.drawable.ic_input_add)
-        button.iconTint = ContextCompat.getColorStateList(context, android.R.color.transparent) // Deja que el color base actúe
+        button.iconTint = ColorStateList.valueOf(context.getColor(R.color.black))
+        button.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.oro)))
+        button.setStrokeColor(ColorStateList.valueOf(context.getColor(R.color.oro)))
+        button.strokeWidth = 0
     }
 
     private fun configurarBotonQuitar(button: MaterialButton) {
         button.text = "Quitar"
-        button.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_light))
+        button.setTextColor(context.getColor(R.color.error))
         button.setIconResource(android.R.drawable.ic_delete)
-        button.iconTint = ContextCompat.getColorStateList(context, android.R.color.transparent)
+        button.iconTint = ColorStateList.valueOf(context.getColor(R.color.error))
+        button.setBackgroundTintList(
+            ColorStateList.valueOf(android.graphics.Color.TRANSPARENT)
+        )
+        button.setStrokeColor(ColorStateList.valueOf(context.getColor(R.color.error)))
+        button.strokeWidth = (2 * context.resources.displayMetrics.density).toInt()
     }
 }

@@ -4,6 +4,45 @@
     <string name="product_selection">Selec_Producto</string>
     <string name="Bienvenidos">"<b>¡Hola! Mucho gusto.</b>\n\nMe presento, mi nombre es <b>Katherine Rodríguez</b>, propietaria de <b>STORE DANY</b>. \n\nEs un verdadero orgullo darte la bienvenida a nuestro negocio, lo cual al acceder y utilizar este sitio web en servidor comercial, aceptas cumplir a los siguientes términos y condiciones.\n\nTe invito a conocer nuestra tienda online, especializada en la venta de calzado para hombre, manejamos las marcas más top de nuestro entorno comercial para marcar tendencia, tales como <b>Nike, Adidas, New Balance, Puma y Reebok</b>.\n\nEl propósito principal de esta plataforma de gestión de ventas es brindarte una asesoría integral sobre nuestros productos, se busca innovar, ofrecerte variedad de estilos y satisfacer tus necesidades con la mejor atención y calidad."</string>
     <string name="accept">Aceptar</string>
+
+    <!-- Splash -->
+    <string name="splash_subtitulo">Tu tienda de calzado para hombre</string>
+    <string name="tv_bienvenida_titulo">Bienvenido a STORE DANY</string>
+    <string name="ver_terminos">Ver términos y condiciones completos</string>
+    <string name="acepto_terminos">He leído y acepto los términos y condiciones</string>
+    <string name="btn_inicio">INICIO STORE DANY</string>
+    <string name="msg_acepta_terminos">Debes aceptar los términos y condiciones para continuar</string>
+
+    <!-- Términos y Condiciones -->
+    <string name="terminos_barra">Términos y Condiciones</string>
+    <string name="terminos_titulo">TÉRMINOS Y CONDICIONES</string>
+    <string name="aceptar_terminos">ACEPTAR TÉRMINOS</string>
+    <string name="cancelar">CANCELAR</string>
+    <string name="terminos_contenido"><![CDATA[
+<b>1. Aceptación de los términos</b><br/><br/>
+Al acceder y utilizar la plataforma de ventas online de <b>STORE DANY</b> aceptas los presentes términos y condiciones. Si no estás de acuerdo, te invitamos a no utilizar el servicio.<br/><br/>
+<b>2. Naturaleza del servicio</b><br/><br/>
+STORE DANY es una tienda especializada en la venta de calzado para hombre. Este aplicativo facilita la asesoría, la selección de productos y la gestión de ventas de forma online.<br/><br/>
+<b>3. Asesoría comercial</b><br/><br/>
+Contamos con asesoría integral. Nuestra asesora <b>Lizeth</b> te acompañará durante el proceso de compra para resolver dudas sobre productos, tallas, pagos y envío.<br/><br/>
+<b>4. Catálogo y disponibilidad</b><br/><br/>
+Las marcas que exhibimos son <b>Nike, Adidas, Puma, New Balance y Reebok</b>. Las imágenes son referenciales y la disponibilidad está sujeta a inventario, la cual se confirma con el asesor comercial.<br/><br/>
+<b>5. Proceso de compra</b><br/><br/>
+• Selecciona tu producto y talla.<br/>
+• Agrégalo al carrito y ajusta las cantidades.<br/>
+• Diligencia correctamente tus datos personales.<br/>
+• Confirma tu pedido; un asesor te contactará para coordinar pago y envío.<br/><br/>
+<b>6. Precios y pagos</b><br/><br/>
+Los precios están expresados en <b>pesos colombianos (COP)</b>. La forma de pago se acuerda con el asesor comercial al momento de la confirmación del pedido.<br/><br/>
+<b>7. Envíos y entrega</b><br/><br/>
+El envío se coordina directamente con el asesor según la dirección registrada. Los tiempos de entrega dependen de la cobertura y de la transportadora.<br/><br/>
+<b>8. Privacidad de tus datos</b><br/><br/>
+Tus datos personales se utilizan exclusivamente para gestionar tu pedido y brindarte atención. No serán compartidos con terceros sin tu consentimiento.<br/><br/>
+<b>9. Contacto</b><br/><br/>
+Para dudas o inquietudes puedes contactar a nuestra asesora <b>Lizeth</b> en horario comercial, o escribir al chat de WhatsApp que estará disponible próximamente.<br/><br/>
+<b>10. Modificaciones</b><br/><br/>
+STORE DANY podrá actualizar estos términos cuando lo considere necesario. Te recomendamos revisarlos periódicamente.
+]]></string>
     <string name="termin_condic">Terminos y Condiciones</string>
     <string name="etNombre">Ingresa tu Nombre</string>
     <string name="idcedula">Cédula</string>
@@ -34,4 +73,58 @@
     <string name="nomdescripcion"> COLOR: blanco, negro, gris y detalles verde encendido, TALLA 42</string>
     <string name="nomprecio">$380.000</string>
     <string name="nombreprodc">NIKE AIR TRAINER</string>
+
+    <!-- Navigation Drawer -->
+    <string name="drawer_open">Abrir menú</string>
+    <string name="drawer_close">Cerrar menú</string>
+
+    <string name="ayuda_titulo">Ayuda y asesoría</string>
+    <string name="ayuda_mensaje">"¿Necesitas ayuda con tu compra?\n\nPuedes contactar a nuestra asesora Lizeth en horario comercial. En breve activaremos el chat de WhatsApp para recibir tu pedido.\n\n¡Te acompañamos durante todo tu proceso de compra!"</string>
+
+    <string name="acerca_titulo">Acerca de STORE DANY</string>
+    <string name="acerca_mensaje">"STORE DANY es una tienda dedicada a la venta de calzado para hombre, con las marcas más top del mercado: Nike, Adidas, Puma, New Balance y Reebok.\n\nVersión 1.0\nDesarrollado con pasión por Katherine Rodríguez y su equipo."</string>
+
+    <!-- Mis Pedidos -->
+    <string name="mis_pedidos_titulo">MIS PEDIDOS</string>
+    <string name="mis_pedidos_vacio">"Aún no tienes pedidos registrados.\n\nCuando realices tu primera compra, podrás ver aquí el historial de tus pedidos."</string>
+    <string name="btn_volver">VOLVER</string>
+
+    <!-- Búsqueda y filtros -->
+    <string name="buscar_hint">Buscar por nombre o marca</string>
+    <string name="sin_resultados">No hay productos que coincidan con tu búsqueda</string>
+    <string name="chip_todos">Todos</string>
+    <string name="chip_nike">Nike</string>
+    <string name="chip_adidas">Adidas</string>
+    <string name="chip_puma">Puma</string>
+    <string name="chip_new_balance">New Balance</string>
+
+    <!-- Catálogo -->
+    <string name="header_titulo">STORE DANY</string>
+    <string name="header_subtitulo">Catálogo de calzado para hombre</string>
+    <string name="ver_mi_carrito">VER MI CARRITO</string>
+
+    <!-- Carrito -->
+    <string name="carro_titulo">Mi Carrito</string>
+    <string name="carro_subtitulo">Resumen de compra</string>
+    <string name="carro_total_label">TOTAL A PAGAR</string>
+    <string name="carro_ir_pagar">IR A PAGAR</string>
+
+    <!-- Datos personales -->
+    <string name="datos_titulo">Finalizar Compra</string>
+    <string name="datos_subtitulo">Datos de contacto y envío</string>
+    <string name="etapellidos_label">Apellidos</string>
+    <string name="idcedula_label">Cédula</string>
+    <string name="phone_label">Celular</string>
+    <string name="email_label">Email</string>
+    <string name="direccion_label">Departamento / Municipio / Dirección</string>
+    <string name="finalizar_pedido">CONFIRMAR PEDIDO</string>
+    <string name="app_nombre">STORE DANY</string>
+    <string name="terminos_subtitulo">Contrato de uso de la tienda</string>
+
+    <!-- Pedido exitoso -->
+    <string name="pedido_exitoso">¡PEDIDO EXITOSO!</string>
+    <string name="pedido_mensaje">"Hemos recibido tu información de compra de forma correcta.\n\nTu mensaje de WhatsApp ha sido generado. Muy pronto un asesor comercial se pondrá en contacto contigo para coordinar el pago y envío."</string>
+    <string name="fin_pedido_volver">VOLVER AL INICIO</string>
+    <string name="header_drawer_slogan">Calzado para hombre</string>
+    <string name="dialog_entendido">Entendido</string>
 </resources>

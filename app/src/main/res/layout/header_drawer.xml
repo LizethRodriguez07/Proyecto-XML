@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/bg_negro"
+    android:padding="28dp">
+
+    <ImageView
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:contentDescription="Logo STORE DANY"
+        android:src="@drawable/logotipo" />
+
+    <TextView
+        style="@style/TextAppearance.TituloMarca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/app_nombre"
+        android:textSize="20sp" />
+
+    <TextView
+        style="@style/TextAppearance.SecundarioPequeño"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/header_drawer_slogan"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/oro_translucido" />
+
+</LinearLayout>

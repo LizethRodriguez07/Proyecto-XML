@@ -3,7 +3,6 @@ package com.example.gestiondeventasonlinestore_dany
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gestiondeventasonlinestore_dany.databinding.ActivityCarroComprasBinding
@@ -20,7 +19,9 @@ class CarroComprasActivity : AppCompatActivity() {
         binding = ActivityCarroComprasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbarCarrito.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         // Recepción segura de datos según la versión de Android
         val listaRecibida = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -37,6 +38,22 @@ class CarroComprasActivity : AppCompatActivity() {
             carroCompras = listaRecibida
         }
 
+        // Conservar el carrito (cambios de cantidades/tallas) al rotar la pantalla
+        savedInstanceState?.let { estado ->
+            val carroGuardado = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                estado.getSerializable(
+                    "lista_carrito_rotacion",
+                    ArrayList::class.java
+                ) as? ArrayList<Producto>
+            } else {
+                @Suppress("DEPRECATION")
+                estado.getSerializable("lista_carrito_rotacion") as? ArrayList<Producto>
+            }
+            if (carroGuardado != null) {
+                carroCompras = carroGuardado
+            }
+        }
+
         setupRecyclerView()
         verificarContenidoCarrito()
 
@@ -44,7 +61,7 @@ class CarroComprasActivity : AppCompatActivity() {
             if (carroCompras.isNotEmpty()) {
                 val intent = Intent(this, DatosPersonalesActivity::class.java)
 
-                val total = carroCompras.sumOf { it.precio }
+                val total = carroCompras.sumOf { it.precio * it.cantidad }
                 intent.putExtra("lista_final_pedido", carroCompras)
                 intent.putExtra("total_pagar", total)
 
@@ -53,20 +70,27 @@ class CarroComprasActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        if (isFinishing) {
+            // Devuelve el carrito actualizado al catálogo (MainActivity)
+            val resultIntent = Intent().apply {
+                putExtra("lista_carrito", carroCompras)
+                putExtra("total_pagar", carroCompras.sumOf { it.precio * it.cantidad })
+            }
+            setResult(RESULT_OK, resultIntent)
+        }
+    }
+
     private fun setupRecyclerView() {
         binding.rvListaCarro.layoutManager = LinearLayoutManager(this)
-        // Asegúrate que tu AdaptadorCarroCompras reciba estos dos parámetros
-        adapter = AdaptadorCarroCompras(binding.tvTotal, carroCompras)
+        adapter = AdaptadorCarroCompras(carroCompras) { verificarContenidoCarrito() }
         binding.rvListaCarro.adapter = adapter
-
-        adapter.registerAdapterDataObserver(object : androidx.recyclerview.widget.RecyclerView.AdapterDataObserver() {
-            override fun onChanged() { super.onChanged(); verificarContenidoCarrito() }
-            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) { verificarContenidoCarrito() }
-        })
     }
+
     private fun verificarContenidoCarrito() {
-        val total = carroCompras.sumOf { it.precio }
-        binding.tvTotal.text = "Total a Pagar: $ ${String.format("%,.0f", total)}"
+        val total = carroCompras.sumOf { it.precio * it.cantidad }
+        binding.tvTotal.text = "$ ${String.format("%,.0f", total)}"
 
         if (carroCompras.isEmpty()) {
             binding.btnIrAPagar.isEnabled = false
@@ -79,9 +103,13 @@ class CarroComprasActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("lista_carrito_rotacion", carroCompras)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
     }
 }
-

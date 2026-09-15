@@ -5,78 +5,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@color/bg_negro"
     tools:context=".CarroComprasActivity">
 
-    <!-- Título de la pantalla -->
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="RESUMEN DE COMPRA"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:textStyle="bold"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarCarrito"
+        style="@style/Style.ToolbarApp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:subtitle="@string/carro_subtitulo"
+        app:title="@string/carro_titulo" />
 
-    <!-- Lista de productos en el carrito -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListaCarro"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/containerTotal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarCarrito"
         tools:listitem="@layout/item_rv_carro_compras" />
 
-    <!-- Contenedor inferior para el total y botón -->
-    <LinearLayout
+    <!-- Panel inferior: total + botón -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/containerTotal"
+        style="@style/Style.TarjetaResaltada"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#1A1A1A"
-        android:padding="20dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TOTAL A PAGAR:"
-                android:textColor="#BDBDBD"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tvTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$0.0"
-                android:textColor="#D4AF37"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/carro_total_label"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$0"
+                    android:textColor="@color/oro"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIrAPagar"
+                style="@style/Style.BotonDorado"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/carro_ir_pagar"
+                app:icon="@drawable/ic_nav_carrito"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:iconTint="@color/black" />
         </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnIrAPagar"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="CONTINUAR AL PAGO"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            app:cornerRadius="12dp"
-            android:backgroundTint="#D4AF37" />
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

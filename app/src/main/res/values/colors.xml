@@ -2,4 +2,26 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Fondos y superficies -->
+    <color name="bg_negro">#0E0E0E</color>
+    <color name="surface">#161616</color>
+    <color name="surface_alta">#1E1E1E</color>
+    <color name="campo">#1F1F1F</color>
+    <color name="borde">#2E2E2E</color>
+
+    <!-- Dorados (acento de la marca) -->
+    <color name="oro">#D4AF37</color>
+    <color name="oro_oscuro">#9C7C1E</color>
+    <color name="oro_claro">#E5C158</color>
+    <color name="oro_translucido">#26D4AF37</color>
+
+    <!-- Textos -->
+    <color name="texto_principal">#F5F5F5</color>
+    <color name="texto_secundario">#B0B0B0</color>
+    <color name="texto_terciario">#7C7C7C</color>
+
+    <!-- Semánticos -->
+    <color name="error">#FF5252</color>
+    <color name="exito">#4CAF50</color>
 </resources>

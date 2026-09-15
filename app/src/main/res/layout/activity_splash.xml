@@ -2,20 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@drawable/bg_splash"
     android:padding="24dp">
 
     <ScrollView
+        android:id="@+id/scrollSplash"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:fillViewport="true"
         android:scrollbars="none"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/chkTerminos">
+        app:layout_constraintBottom_toTopOf="@+id/tvVerTerminos"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,75 +23,115 @@
             android:orientation="vertical"
             android:gravity="center">
 
-        <!-- Logo de STORE DANY -->
-        <ImageView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/logotipo"/>
+            <!-- Logo -->
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="Logo STORE DANY"
+                android:src="@drawable/logotipo" />
 
-        <!-- Titulo -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="STORE DANY"
-            android:textColor="#D4AF37"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.01"/>
-
-        <!-- tarjeta con el texto de bienvenida -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginHorizontal="8dp"
-            app:cardBackgroundColor="#1AFFFFFF"
-            app:cardCornerRadius="16dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#33FFFFFF">
-
-            <!-- Texto de Bienvenidos desde strings.xml -->
+            <!-- Título -->
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                style="@style/TextAppearance.TituloMarca"
+                android:text="@string/app_nombre"
+                android:textSize="34sp" />
+
+            <!-- Subtítulo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/splash_subtitulo"
+                android:textColor="@color/texto_secundario"
+                android:textSize="14sp" />
+
+            <!-- Línea divisoria dorada -->
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/oro_oscuro" />
+
+            <!-- Tarjeta de bienvenida -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Style.Tarjeta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:lineSpacingExtra="8dp"
-                android:text="@string/Bienvenidos"
-                android:textColor="#E0E0E0"
-                android:textSize="16sp" />
+                android:layout_marginTop="28dp"
+                android:layout_marginHorizontal="4dp"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/oro_translucido">
 
-        </com.google.android.material.card.MaterialCardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="22dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_bienvenida_titulo"
+                        android:textColor="@color/oro"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:lineSpacingExtra="6dp"
+                        android:text="@string/Bienvenidos"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
+
+    <!-- Enlace a los términos -->
+    <TextView
+        android:id="@+id/tvVerTerminos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/ver_terminos"
+        android:textColor="@color/oro"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.04"
+        app:layout_constraintBottom_toTopOf="@id/chkTerminos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/chkTerminos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginHorizontal="8dp"
-        android:text="Acepto los términos, condiciones y asesoría comercial"
-        android:textColor="#FFFFFF"
+        android:text="@string/acepto_terminos"
+        android:textColor="@color/texto_principal"
         android:textSize="14sp"
-        app:buttonTint="#D4AF37"
+        app:buttonTint="@color/oro"
+        app:checkedIconTint="@color/black"
+        app:useMaterialThemeColors="false"
         app:layout_constraintBottom_toTopOf="@+id/btnComenzar" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnComenzar"
+        style="@style/Style.BotonDorado"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Inicio STORE DANY"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:letterSpacing="0.05"
-        app:cornerRadius="16dp"
-        android:backgroundTint="#D4AF37"
-        app:elevation="4dp"
+        android:layout_height="58dp"
+        android:text="@string/btn_inicio"
+        android:letterSpacing="0.08"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

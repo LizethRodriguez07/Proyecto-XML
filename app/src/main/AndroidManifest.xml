@@ -20,6 +20,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".TerminosCondicionesActivity"
+            android:exported="false" />
+
         <!-- 2. MainActivity NO debe tener el intent-filter si usas Splash -->
         <activity
             android:name=".MainActivity"
@@ -35,6 +39,10 @@
 
         <activity
             android:name=".PedidoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MisPedidosActivity"
             android:exported="false" />
 
     </application>
