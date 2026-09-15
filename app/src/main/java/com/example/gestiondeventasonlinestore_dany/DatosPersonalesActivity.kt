@@ -86,7 +86,17 @@ class DatosPersonalesActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.perfil_guardado_msg, Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                // 5. SALTO A PANTALLA DE ÉXITO preservando el perfil guardado
+                // 5. Gestión de pedido guardado + SALTO A PANTALLA DE ÉXITO
+                RepositorioPedidos.guardar(
+                    this,
+                    Pedido(
+                        id = System.currentTimeMillis(),
+                        nombreCliente = cliente.nombre,
+                        productos = listaCompra,
+                        total = totalPagar,
+                        fecha = System.currentTimeMillis()
+                    )
+                )
                 Toast.makeText(
                     this,
                     getString(R.string.toast_procesando_pedido, cliente.nombre),

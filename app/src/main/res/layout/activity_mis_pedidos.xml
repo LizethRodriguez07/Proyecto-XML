@@ -18,10 +18,13 @@
         app:title="@string/mis_pedidos_titulo"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Estado vacío -->
     <ScrollView
+        android:id="@+id/scrollPedidos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarPedidos">
 
@@ -99,4 +102,17 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
+
+    <!-- Lista de pedidos (cuando hay) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPedidos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarPedidos"
+        tools:listitem="@layout/item_rv_pedidos" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

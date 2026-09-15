@@ -85,6 +85,11 @@
     <!-- Mis Pedidos -->
     <string name="mis_pedidos_titulo">MIS PEDIDOS</string>
     <string name="mis_pedidos_vacio_titulo">Sin pedidos por ahora</string>
+    <string name="pedido_estado_pendiente">PENDIENTE</string>
+    <string name="pedido_total">Total</string>
+    <string name="pedido_formato_fecha">dd/MM/yyyy · hh:mm a</string>
+    <string name="pedido_linea_producto">%1$s · %2$s</string>
+    <string name="pedido_linea_cantidad">Talla %1$s · x%2$d</string>
     <string name="mis_pedidos_vacio">"Aún no tienes pedidos registrados.\n\nCuando realices tu primera compra, podrás ver aquí el historial de tus pedidos."</string>
     <string name="btn_volver">VOLVER</string>
 

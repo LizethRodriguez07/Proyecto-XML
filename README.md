@@ -18,7 +18,7 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 - **Menú lateral (Navigation Drawer):** acceso al catálogo, carrito, pedidos, datos personales, ayuda y acerca de; con cabecera de la tienda.
 - **Carrito de compras completo:** cada producto muestra imagen, marca, talla editable, precio unitario, control de cantidad (−/+) y subtotal por línea, con contador en tiempo real, eliminación de ítems y total a pagar calculado automáticamente.
 - **Gestión de tallas y cantidades:** cambiar la talla desde el carrito y fusiona automáticamente líneas del mismo producto y talla.
-- **Mis pedidos:** pantalla con estado inicial vacío rediseñado (tarjeta centrada con icono, mensaje y acceso directo al catálogo); la persistencia de pedidos está prevista en el roadmap.
+- **Mis pedidos:** historial persistente de pedidos (SharedPreferences/JSON): cada compra confirmada se guarda automáticamente y se lista con fecha y hora, nombre del cliente, líneas de producto (producto · marca y talla × cantidad), total y estado inicial "Pendiente"; si aún no hay compras muestra el estado vacío diseñado.
 - **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). El formulario se organiza en tarjetas por secciones (datos del cliente y dirección de envío), con campos en filas de dos columnas, iconos identificativos en cada campo y selectores desplegables para departamento y municipio. La selección de departamento/municipio se conserva al rotar la pantalla.
 - **Perfil de cliente persistente:** los datos ingresados se guardan localmente (SharedPreferences) y autocompletan los formularios futuros; el ítem "Mi Perfil" del menú permite crearlos o editarlos antes de comprar.
 - **Confirmación de pedido:** pantalla de éxito con mensaje de agradecimiento y botón para volver al inicio (reinicia la navegación y limpia el carrito).
@@ -53,14 +53,14 @@ SplashActivity
    ▼
 MainActivity (catálogo + menú lateral / Drawer)
    │  "Mi Carrito" ──► CarroComprasActivity ──► DatosPersonalesActivity (compra) ──► PedidoActivity ──► (vuelve a MainActivity)
-   │  "Mis Pedidos" ──► MisPedidosActivity (estado vacío)
+   │  "Mis Pedidos" ──► MisPedidosActivity (historial de pedidos)
    │  "Mi Perfil" ──► DatosPersonalesActivity (modo perfil: guarda y vuelve)
 ```
 
 - `SplashActivity` lanza `TerminosCondicionesActivity` con `registerForActivityResult` y marca la casilla automáticamente si acepta (`RESULT_OK`).
 - `MainActivity` es el catálogo principal; administra la lista de productos, la búsqueda/filtros y el carrito en memoria, y está envuelta en un `DrawerLayout` con `NavigationView`.
 - `CarroComprasActivity` recibe el carrito vía `Intent.getSerializableExtra` (con manejo compatible para Android 13+) y lo devuelve actualizado.
-- `MisPedidosActivity` es accesible desde el menú lateral (borrador visual sin persistencia).
+- `MisPedidosActivity` es accesible desde el menú lateral y muestra el historial de pedidos persistente (o el estado vacío si aún no hay compras).
 - `DatosPersonalesActivity` valida los campos del cliente (cédula y celular de 10 dígitos, email con formato), selecciona departamento/municipio en cascada y redirige a la confirmación; en modo perfil ("Mi Perfil") guarda los datos y regresa.
 - `PedidoActivity` limpia la pila de actividades (`FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK`) al regresar.
 - El perfil del cliente se persiste con `SharedPreferences` (JSON) mediante `RepositorioPerfil` y autocompleta los formularios futuros.
@@ -85,11 +85,14 @@ app/src/main/java/com/example/gestiondeventasonlinestore_dany/
 ├── AdaptadorCarroCompras.kt      # Adapter del carrito (marca, precio, cantidad, talla)
 ├── DatosPersonalesActivity.kt    # Formulario de compra y perfil (modo perfil)
 ├── PedidoActivity.kt             # Confirmación de pedido
-├── MisPedidosActivity.kt         # Borrador de pedidos (estado vacío)
+├── MisPedidosActivity.kt         # Historial de pedidos (lista o estado vacío)
+├── AdaptadorPedidos.kt           # Adapter del historial de Mis Pedidos
 ├── AyudaActivity.kt              # Canales de atención, horario dinámico y FAQ
 ├── AcercaDeActivity.kt           # Hero de bienvenida + Misión y Visión
 ├── Producto.kt                   # Modelo del producto
+├── Pedido.kt                     # Modelo del pedido (cliente, productos, total, fecha)
 ├── Cliente.kt                    # Modelo del cliente/perfil
+├── RepositorioPedidos.kt         # Persistencia del historial (SharedPreferences/JSON)
 ├── RepositorioPerfil.kt          # Persistencia del perfil (SharedPreferences/JSON)
 ├── UbicacionColombia.kt          # Departamentos y municipios del selector
 └── Ui.kt                         # Extensión ajustarBarrasSistema()
@@ -99,7 +102,7 @@ Recursos del menú lateral: `res/menu/drawer_menu.xml` y `res/layout/header_draw
 
 ### Patrón de arquitectura
 
-El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controladores y vistas, el modelo `Producto` como datos, y los `Adapter` se encargan de la representación en `RecyclerView`. Los datos del catálogo y el carrito viven en memoria durante la sesión y viajan entre pantallas mediante `Intent` extras; la única persistencia actual es el perfil del cliente en `SharedPreferences` (JSON). No hay red todavía.
+El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controladores y vistas, el modelo `Producto` como datos, y los `Adapter` se encargan de la representación en `RecyclerView`. Los datos del catálogo y el carrito viven en memoria durante la sesión y viajan entre pantallas mediante `Intent` extras; la persistencia actual usa `SharedPreferences` (JSON) para el perfil del cliente y el historial de pedidos. No hay red todavía.
 
 ### Diseño visual
 
@@ -161,11 +164,12 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 - [x] Perfil de cliente persistente (SharedPreferences) con autocompletado y selector de departamento/municipio en cascada con validaciones.
 - [x] Pulido del catálogo y del carrito (tarjetas aireadas) y cabecera hero con contador de unidades; incorporación del producto Reebok Classic.
 - [x] Diseño del estado vacío de Mis Pedidos y persistencia de la selección de ubicación al rotar el formulario.
+- [x] Historial de pedidos persistente (SharedPreferences/JSON) mostrado en Mis Pedidos con fecha, productos, total y estado Pendiente.
 - [x] Adopción de ViewBinding en toda la app y limpieza del código muerto de la plantilla login (`data/`, `catalogo.xml`).
 
 **Corto plazo**
 - [ ] Enviar el resumen del pedido (productos + datos del cliente) por **WhatsApp** a un asesor comercial.
-- [ ] Persistencia de catálogo y pedidos con **Room** (SQLite); el perfil del cliente ya usa SharedPreferences.
+- [ ] Persistencia del catálogo con **Room** (SQLite); el perfil del cliente y el historial de pedidos ya usan SharedPreferences.
 - [ ] Filtro por talla y sistema de favoritos.
 
 **Mediano plazo**
