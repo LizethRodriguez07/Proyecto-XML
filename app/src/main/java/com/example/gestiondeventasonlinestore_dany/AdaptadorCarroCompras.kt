@@ -46,15 +46,24 @@ class AdaptadorCarroCompras(
         val producto = carroCompras[position]
 
         holder.nomProducto.text = producto.nomProducto
-        holder.tvMarca.text = "Marca: ${producto.marca}"
+        holder.tvMarca.text = holder.itemView.context.getString(
+            R.string.carro_marca,
+            producto.marca
+        )
         holder.nomdescripcion.text = producto.descripcion
         holder.imagen.setImageResource(producto.imagen)
-        holder.tvPrecioUnitario.text = "Precio: $ $${
+        holder.imagen.contentDescription = holder.itemView.context.getString(
+            R.string.content_desc_producto,
+            producto.nomProducto
+        )
+        holder.tvPrecioUnitario.text = holder.itemView.context.getString(
+            R.string.carro_precio_unitario,
             String.format("%,.0f", producto.precio)
-        }"
-        holder.nomprecio.text = "Subtotal: $ ${
+        )
+        holder.nomprecio.text = holder.itemView.context.getString(
+            R.string.carro_subtotal,
             String.format("%,.0f", producto.precio * producto.cantidad)
-        }"
+        )
         holder.tvCantidad.text = "${producto.cantidad}"
 
         holder.btnMenos.setOnClickListener {
@@ -141,9 +150,10 @@ class AdaptadorCarroCompras(
 
     private fun actualizarLinea(holder: ViewHolder, item: Producto) {
         holder.tvCantidad.text = "${item.cantidad}"
-        holder.nomprecio.text = "Subtotal: $ ${
+        holder.nomprecio.text = holder.itemView.context.getString(
+            R.string.carro_subtotal,
             String.format("%,.0f", item.precio * item.cantidad)
-        }"
+        )
     }
 
     override fun getItemCount(): Int = carroCompras.size

@@ -163,7 +163,7 @@
         app:headerLayout="@layout/header_drawer"
         app:itemIconTint="@color/drawer_item_color"
         app:itemTextColor="@color/drawer_item_color"
-        app:itemShapeAppearance="@style/ShapeAppearances.NavItem"
+        app:itemShapeAppearance="@style/NavItemShape"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

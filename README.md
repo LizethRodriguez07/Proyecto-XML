@@ -18,7 +18,8 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 - **Carrito de compras completo:** cada producto muestra imagen, marca, talla editable, precio unitario, control de cantidad (−/+) y subtotal por línea, con contador en tiempo real, eliminación de ítems y total a pagar calculado automáticamente.
 - **Gestión de tallas y cantidades:** cambiar la talla desde el carrito y fusiona automáticamente líneas del mismo producto y talla.
 - **Mis pedidos:** pantalla con estado inicial vacío (la persistencia de pedidos está prevista en el roadmap).
-- **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email y dirección con validación de campos vacíos.
+- **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). El formulario se organiza en dos secciones (datos del cliente y dirección de envío) con selectores desplegables para departamento y municipio.
+- **Perfil de cliente persistente:** los datos ingresados se guardan localmente (SharedPreferences) y autocompletan los formularios futuros; el ítem "Mi Perfil" del menú permite crearlos o editarlos antes de comprar.
 - **Confirmación de pedido:** pantalla de éxito con mensaje de agradecimiento y botón para volver al inicio (reinicia la navegación y limpia el carrito).
 - **Diseño premium:** interfaz oscura con acentos dorados, fondos negros, tarjetas Material con bordes redondeados y componentes Material Components (MaterialButton, MaterialCardView, TextInputLayout, MaterialCheckBox, MaterialToolbar).
 
@@ -27,7 +28,7 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 | Capa | Tecnología |
 | --- | --- |
 | Lenguaje | Kotlin 1.9.0 |
-| UI | XML layouts (ViewBinding + findViewById) |
+| UI | XML layouts (ViewBinding) |
 | Entorno de compilación | Android Gradle Plugin 8.2.0, Gradle (wrapper) |
 | SDK mínimo / objetivo | minSdk 24 (Android 7.0) / targetSdk y compileSdk 34 (Android 14) |
 | JVM | Java 11 |
@@ -48,24 +49,26 @@ SplashActivity
    │  (acepta términos y continúa)
    ▼
 MainActivity (catálogo + menú lateral / Drawer)
-   │  ───► MisPedidosActivity (estado vacío)
-   │  ───► DatosPersonalesActivity ──► PedidoActivity ──► (vuelve a MainActivity)
-   ▼
-CarroComprasActivity
+   │  "Mi Carrito" ──► CarroComprasActivity ──► DatosPersonalesActivity (compra) ──► PedidoActivity ──► (vuelve a MainActivity)
+   │  "Mis Pedidos" ──► MisPedidosActivity (estado vacío)
+   │  "Mi Perfil" ──► DatosPersonalesActivity (modo perfil: guarda y vuelve)
 ```
 
 - `SplashActivity` lanza `TerminosCondicionesActivity` con `registerForActivityResult` y marca la casilla automáticamente si acepta (`RESULT_OK`).
 - `MainActivity` es el catálogo principal; administra la lista de productos, la búsqueda/filtros y el carrito en memoria, y está envuelta en un `DrawerLayout` con `NavigationView`.
-- `CarroComprasActivity` recibe el carrito vía `Intent.getSerializableExtra` (con manejo compatible para Android 13+).
+- `CarroComprasActivity` recibe el carrito vía `Intent.getSerializableExtra` (con manejo compatible para Android 13+) y lo devuelve actualizado.
 - `MisPedidosActivity` es accesible desde el menú lateral (borrador visual sin persistencia).
-- `DatosPersonalesActivity` valida los campos y redirige a la confirmación.
+- `DatosPersonalesActivity` valida los campos del cliente (cédula y celular de 10 dígitos, email con formato), selecciona departamento/municipio en cascada y redirige a la confirmación; en modo perfil ("Mi Perfil") guarda los datos y regresa.
 - `PedidoActivity` limpia la pila de actividades (`FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK`) al regresar.
+- El perfil del cliente se persiste con `SharedPreferences` (JSON) mediante `RepositorioPerfil` y autocompleta los formularios futuros.
 
 ### Modelo
 
 `Producto` es un `data class` `Serializable` con los campos:
 
 - `nomProducto`, `descripcion`, `precio` (Double), `imagen` (recurso drawable), `marca` (String), `tallaSeleccionada` (String), `cantidad` (Int).
+
+`Cliente` es un `data class` `Serializable` que agrupa los datos del formulario (nombre, apellidos, cédula, celular, email, departamento, municipio, dirección) y se guarda como JSON en `SharedPreferences` a través de `RepositorioPerfil`.
 
 ### Estructura del código
 
@@ -77,25 +80,30 @@ app/src/main/java/com/example/gestiondeventasonlinestore_dany/
 ├── AdaptadorProducto.kt          # Adapter del RecyclerView de catálogo
 ├── CarroComprasActivity.kt       # Carrito completo (resumen + total)
 ├── AdaptadorCarroCompras.kt      # Adapter del carrito (marca, precio, cantidad, talla)
-├── DatosPersonalesActivity.kt    # Formulario de datos del cliente
+├── DatosPersonalesActivity.kt    # Formulario de compra y perfil (modo perfil)
 ├── PedidoActivity.kt             # Confirmación de pedido
 ├── MisPedidosActivity.kt         # Borrador de pedidos (estado vacío)
 ├── Producto.kt                   # Modelo del producto
-└── data/                         # (Plantilla de login sin usar, pendiente de limpieza)
+├── Cliente.kt                    # Modelo del cliente/perfil
+├── RepositorioPerfil.kt          # Persistencia del perfil (SharedPreferences/JSON)
+├── UbicacionColombia.kt          # Departamentos y municipios del selector
+└── Ui.kt                         # Extensión ajustarBarrasSistema()
 ```
 
 Recursos del menú lateral: `res/menu/drawer_menu.xml` y `res/layout/header_drawer.xml`.
 
 ### Patrón de arquitectura
 
-El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controladores y vistas, el modelo `Producto` como datos, y los `Adapter` se encargan de la representación en `RecyclerView`. No hay capa de persistencia ni red todavía: los datos viven en memoria durante la sesión y viajan entre pantallas mediante `Intent` extras.
+El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controladores y vistas, el modelo `Producto` como datos, y los `Adapter` se encargan de la representación en `RecyclerView`. Los datos del catálogo y el carrito viven en memoria durante la sesión y viajan entre pantallas mediante `Intent` extras; la única persistencia actual es el perfil del cliente en `SharedPreferences` (JSON). No hay red todavía.
 
 ### Diseño visual
 
 - **Tema:** oscuro fijo (`Theme.Material3.Dark.NoActionBar`) con fondo `#0E0E0E`.
 - **Color de acento:** dorado `#D4AF37` para botones principales, títulos y bordes de formularios.
+- **Sistema de diseño centralizado:** paleta de tokens en `res/values/colors.xml` (fondos, superficies, dorados de marca `#D4AF37`/`#9C7C1E`, textos claro/medio/gris, error y éxito) y estilos reutilizables en `themes.xml` (`Style.BotonDorado`, `Style.BotonContorno`, `Style.BotonAccion`, `Style.CampoTexto`, `Style.Buscador`, `Style.ChipMarca`, `Style.Tarjeta`, `Style.TarjetaResaltada`, `Style.ToolbarApp` y `TextAppearance.*`).
 - **Tarjetas:** `MaterialCardView` con fondo `@color/surface` (`#161616`), bordeadas y esquinas de 16dp.
 - **Tipografía:** estilos `TextAppearance.*` (títulos, marcas, subtítulos) con acentos dorados y colores claros (`#F5F5F5`, `#B0B0B0`).
+- **Barras de sistema:** padding automático sobre el contenido mediante la extensión `ajustarBarrasSistema()` aplicada en todas las pantallas.
 - **Formato de precios:** pesos colombianos con separador de miles (`$,.0f`).
 
 ### Recursos
@@ -103,6 +111,7 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 - Diseños XML en `app/src/main/res/layout/` (`activity_*`, `item_rv_*`, `drawer_menu.xml`, `header_drawer.xml`).
 - Imágenes de productos y logotipo en `app/src/main/res/drawable/`.
 - Textos centralizados en `app/src/main/res/values/strings.xml`; menú lateral en `res/menu/drawer_menu.xml`.
+- Selectores de estado (chips de marca y ítems del drawer) en `res/color/`.
 - Iconos vectoriales dorados para el menú lateral, búsqueda, cantidades y flecha de retorno.
 
 ## Puesta en marcha
@@ -144,17 +153,18 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 - [x] Rediseño del menú de navegación con cajón lateral (Navigation Drawer).
 - [x] Búsqueda y filtros por marca en el catálogo (quedan pendientes los filtros por talla y favoritos).
 - [x] Rediseño del procedimiento de Términos y Condiciones (pantalla dedicada con 10 cláusulas y aceptación obligatoria).
+- [x] Perfil de cliente persistente (SharedPreferences) con autocompletado y selector de departamento/municipio en cascada con validaciones.
+- [x] Adopción de ViewBinding en toda la app y limpieza del código muerto de la plantilla login (`data/`, `catalogo.xml`).
 
 **Corto plazo**
 - [ ] Enviar el resumen del pedido (productos + datos del cliente) por **WhatsApp** a un asesor comercial.
-- [ ] Persistencia local de productos y pedidos con **Room** (base de datos SQLite).
+- [ ] Persistencia de catálogo y pedidos con **Room** (SQLite); el perfil del cliente ya usa SharedPreferences.
 - [ ] Filtro por talla y sistema de favoritos.
 
 **Mediano plazo**
 - [ ] Catálogo dinámico consumido desde una **API/backend** (en lugar de datos fijos en memoria).
 - [ ] Autenticación de usuarios (registro e inicio de sesión) con sesión persistente.
 - [ ] Estado de pedidos y seguimiento (pendiente, aprobado, enviado, entregado).
-- [ ] Limpieza del código muerto de la plantilla login (`data/`, `catalogo.xml`, strings sin uso).
 
 **Largo plazo**
 - [ ] Pasarela de pagos (PSE, tarjeta de crédito/débito, NEQUI/Daviplata).

@@ -13,8 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gestiondeventasonlinestore_dany.databinding.ActivityMainBinding
@@ -61,11 +59,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         // Configurar Padding para barras de sistema
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding.root.ajustarBarrasSistema()
 
         configurarDrawer()
         setupNavigationView()
@@ -116,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             if (carroCompras.isEmpty()) {
                 Toast.makeText(
                     this,
-                    "Por favor selecciona al menos un producto",
+                    getString(R.string.toast_selecciona_producto),
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -156,7 +150,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_perfil -> {
-                    startActivity(Intent(this, DatosPersonalesActivity::class.java))
+                    startActivity(
+                        Intent(this, DatosPersonalesActivity::class.java)
+                            .putExtra("modo_perfil", true)
+                    )
                 }
 
                 R.id.nav_ayuda -> {
@@ -227,13 +224,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun actualizarContadorCarrito() {
         val unidades = carroCompras.sumOf { it.cantidad }
-        binding.btnVerCarrito.text = "VER MI CARRITO ($unidades)"
+        binding.btnVerCarrito.text = getString(R.string.main_ver_carrito_conteo, unidades)
 
         val itemCarrito = binding.navView.menu.findItem(R.id.nav_carrito)
         itemCarrito?.title = if (carroCompras.isEmpty()) {
-            "Mi Carrito"
+            getString(R.string.carro_titulo)
         } else {
-            "Mi Carrito ($unidades)"
+            getString(R.string.main_mi_carrito_conteo, unidades)
         }
     }
 
@@ -243,7 +240,7 @@ class MainActivity : AppCompatActivity() {
             Producto(
                 "Nike Air Trainer",
                 "Nike",
-                "Tallas: 39-42. Blanco/Gris",
+                "Tallas: 37-42. Blanco/Gris",
                 380000.0,
                 R.drawable.niked
             )
@@ -252,7 +249,7 @@ class MainActivity : AppCompatActivity() {
             Producto(
                 "ADIDAS FORUM",
                 "Adidas",
-                "Tallas: 37-41. Negro/Blanco",
+                "Tallas: 37-42. Negro/Blanco",
                 350000.0,
                 R.drawable.adidas4
             )
@@ -261,7 +258,7 @@ class MainActivity : AppCompatActivity() {
             Producto(
                 "PUMA STREET",
                 "Puma",
-                "Tallas: 38-43. Azul/Gris",
+                "Tallas: 37-42. Azul/Gris",
                 320000.0,
                 R.drawable.puma6
             )
@@ -270,7 +267,7 @@ class MainActivity : AppCompatActivity() {
             Producto(
                 "NEW BALANCE 1300",
                 "New Balance",
-                "Tallas: 39-44. Café",
+                "Tallas: 37-42. Café",
                 280000.0,
                 R.drawable.new6
             )
@@ -281,7 +278,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun irAlCarrito() {
         if (carroCompras.isEmpty()) {
-            Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_carrito_vacio), Toast.LENGTH_SHORT).show()
         } else {
             val intent = Intent(this, CarroComprasActivity::class.java)
             intent.putExtra("lista_carrito", carroCompras)

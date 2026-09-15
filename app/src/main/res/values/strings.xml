@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">Gestion de Ventas Online STORE_DANY</string>
-    <string name="catalog">Catalogo</string>
-    <string name="product_selection">Selec_Producto</string>
     <string name="Bienvenidos">"<b>¡Hola! Mucho gusto.</b>\n\nMe presento, mi nombre es <b>Katherine Rodríguez</b>, propietaria de <b>STORE DANY</b>. \n\nEs un verdadero orgullo darte la bienvenida a nuestro negocio, lo cual al acceder y utilizar este sitio web en servidor comercial, aceptas cumplir a los siguientes términos y condiciones.\n\nTe invito a conocer nuestra tienda online, especializada en la venta de calzado para hombre, manejamos las marcas más top de nuestro entorno comercial para marcar tendencia, tales como <b>Nike, Adidas, New Balance, Puma y Reebok</b>.\n\nEl propósito principal de esta plataforma de gestión de ventas es brindarte una asesoría integral sobre nuestros productos, se busca innovar, ofrecerte variedad de estilos y satisfacer tus necesidades con la mejor atención y calidad."</string>
-    <string name="accept">Aceptar</string>
 
     <!-- Splash -->
     <string name="splash_subtitulo">Tu tienda de calzado para hombre</string>
@@ -43,36 +40,6 @@ Para dudas o inquietudes puedes contactar a nuestra asesora <b>Lizeth</b> en hor
 <b>10. Modificaciones</b><br/><br/>
 STORE DANY podrá actualizar estos términos cuando lo considere necesario. Te recomendamos revisarlos periódicamente.
 ]]></string>
-    <string name="termin_condic">Terminos y Condiciones</string>
-    <string name="etNombre">Ingresa tu Nombre</string>
-    <string name="idcedula">Cédula</string>
-    <string name="phone">Celular</string>
-    <string name="email">Email</string>
-    <string name="municipio">Municipio</string>
-    <string name="departamento">Departamento</string>
-    <string name="direccion">Dirección</string>
-    <string name="btnenviar">Enviar Datos</string>
-    <string name="btenviardatos">Enviar Datos</string>
-    <string name="title_activity_ingreso_datos">Ingreso_Datos</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="etinombre">Nombre</string>
-    <string name="etapellidos">Apellidos</string>
-    <string name="imgbasedatos">Registro</string>
-    <string name="acuerdo">A continuación, es fundamental que este acuerdo sea visible y accesible para asegurar su validez, comúnmente mediante casillas de (ACEPTAR)</string>
-    <string name="inf_cat_logo">INF.CATÁLOGO</string>
-    <string name="Descripcion_1">El propósitos de esta información tiene el objetivo de presentarles a mi compañera Lizeth, la cual va a estar acompañándolo, apoyando, instrumentando a gestionar su compra Online, por medio de este sitio web, lo que determina que es caso de dudas e inquietudes en caso de nuestro portafolio de productos o pagos, se pueden contactar por medio del Chat Online</string>
-    <string name="Descripcion_2">STORE DANY, es un negocio la cual es destinada a la venta de calzado para hombre, cuenta con la marcas mas top en el marcado a nivel de nuestro reconocimiento Chucureño, siendo asi se exhiben marcas (Nike, Adidas, Puma, New Balance y Reebok).</string>
-    <string name="nomproducto"> NIKE AIR TRAINER</string>
-    <string name="nomdescripcion"> COLOR: blanco, negro, gris y detalles verde encendido, TALLA 42</string>
-    <string name="nomprecio">$380.000</string>
-    <string name="nombreprodc">NIKE AIR TRAINER</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_open">Abrir menú</string>
@@ -102,29 +69,67 @@ STORE DANY podrá actualizar estos términos cuando lo considere necesario. Te r
     <string name="header_titulo">STORE DANY</string>
     <string name="header_subtitulo">Catálogo de calzado para hombre</string>
     <string name="ver_mi_carrito">VER MI CARRITO</string>
+    <string name="main_ver_carrito_conteo">VER MI CARRITO (%1$d)</string>
+    <string name="main_mi_carrito_conteo">Mi Carrito (%1$d)</string>
+
+    <!-- Mensajes del catálogo -->
+    <string name="toast_selecciona_producto">Por favor selecciona al menos un producto</string>
+    <string name="toast_carrito_vacio">El carrito está vacío</string>
+    <string name="btn_anadir">Añadir</string>
+    <string name="btn_quitar">Quitar</string>
+    <string name="toast_producto_quitado">%1$s quitado del carrito</string>
+    <string name="toast_producto_anadido">%1$s añadido (Talla: %2$s)</string>
 
     <!-- Carrito -->
     <string name="carro_titulo">Mi Carrito</string>
     <string name="carro_subtitulo">Resumen de compra</string>
     <string name="carro_total_label">TOTAL A PAGAR</string>
+    <string name="moneda_formato">$%1$s</string>
     <string name="carro_ir_pagar">IR A PAGAR</string>
+    <string name="carro_boton_vacio">CARRITO VACÍO</string>
+    <string name="carro_marca">Marca: %1$s</string>
+    <string name="carro_precio_unitario">Precio: $%1$s</string>
+    <string name="carro_subtotal">Subtotal: $%1$s</string>
 
     <!-- Datos personales -->
     <string name="datos_titulo">Finalizar Compra</string>
     <string name="datos_subtitulo">Datos de contacto y envío</string>
+    <string name="etinombre">Nombre</string>
     <string name="etapellidos_label">Apellidos</string>
     <string name="idcedula_label">Cédula</string>
     <string name="phone_label">Celular</string>
     <string name="email_label">Email</string>
-    <string name="direccion_label">Departamento / Municipio / Dirección</string>
+    <string name="departamento_label">Departamento</string>
+    <string name="municipio_label">Municipio</string>
+    <string name="direccion_detallada_label">Dirección detallada (calle, carrera, casa, barrio)</string>
     <string name="finalizar_pedido">CONFIRMAR PEDIDO</string>
+    <string name="error_campo_vacio">Por favor completa este campo</string>
+    <string name="error_cedula">La cédula debe tener 10 dígitos</string>
+    <string name="error_celular">El celular debe tener 10 dígitos</string>
+    <string name="error_email">Ingresa un email válido (ej. nombre@gmail.com)</string>
+    <string name="error_ubicacion">Selecciona departamento y municipio</string>
+    <string name="perfil_titulo">Mi Perfil</string>
+    <string name="perfil_subtitulo">Tus datos de contacto y envío</string>
+    <string name="perfil_guardar">GUARDAR PERFIL</string>
+    <string name="perfil_guardado_msg">"✅ Perfil guardado correctamente"</string>
+    <string name="formulario_datos_titulo">Datos del cliente</string>
+    <string name="formulario_datos_subtitulo">Información de contacto y facturación</string>
+    <string name="formulario_direccion_titulo">Dirección de envío</string>
+    <string name="formulario_direccion_subtitulo">Selecciona tu departamento, municipio y escribe la dirección</string>
+    <string name="toast_procesando_pedido">"✅ Procesando pedido de %1$s..."</string>
     <string name="app_nombre">STORE DANY</string>
     <string name="terminos_subtitulo">Contrato de uso de la tienda</string>
 
     <!-- Pedido exitoso -->
     <string name="pedido_exitoso">¡PEDIDO EXITOSO!</string>
     <string name="pedido_mensaje">"Hemos recibido tu información de compra de forma correcta.\n\nTu mensaje de WhatsApp ha sido generado. Muy pronto un asesor comercial se pondrá en contacto contigo para coordinar el pago y envío."</string>
+    <string name="pedido_resumen">"Tu pedido de %1$d artículo(s) por un total de %2$s ha sido generado correctamente.\n\nGracias %3$s por comprar en STORE DANY. Un asesor comercial se pondrá en contacto contigo para coordinar el pago y el envío."</string>
+    <string name="pedido_resumen_sin_nombre">"Tu pedido de %1$d artículo(s) por un total de %2$s ha sido generado correctamente.\n\nUn asesor comercial se pondrá en contacto contigo para coordinar el pago y el envío."</string>
     <string name="fin_pedido_volver">VOLVER AL INICIO</string>
+
+    <!-- Accesibilidad -->
+    <string name="content_desc_producto">Imagen del producto: %1$s</string>
+
     <string name="header_drawer_slogan">Calzado para hombre</string>
     <string name="dialog_entendido">Entendido</string>
 </resources>

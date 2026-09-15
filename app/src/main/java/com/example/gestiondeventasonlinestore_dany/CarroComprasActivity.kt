@@ -19,6 +19,8 @@ class CarroComprasActivity : AppCompatActivity() {
         binding = ActivityCarroComprasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.root.ajustarBarrasSistema()
+
         binding.toolbarCarrito.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
@@ -90,16 +92,19 @@ class CarroComprasActivity : AppCompatActivity() {
 
     private fun verificarContenidoCarrito() {
         val total = carroCompras.sumOf { it.precio * it.cantidad }
-        binding.tvTotal.text = "$ ${String.format("%,.0f", total)}"
+        binding.tvTotal.text = getString(
+            R.string.moneda_formato,
+            String.format("%,.0f", total)
+        )
 
         if (carroCompras.isEmpty()) {
             binding.btnIrAPagar.isEnabled = false
             binding.btnIrAPagar.alpha = 0.4f
-            binding.btnIrAPagar.text = "CARRITO VACÍO"
+            binding.btnIrAPagar.text = getString(R.string.carro_boton_vacio)
         } else {
             binding.btnIrAPagar.isEnabled = true
             binding.btnIrAPagar.alpha = 1.0f
-            binding.btnIrAPagar.text = "IR A PAGAR"
+            binding.btnIrAPagar.text = getString(R.string.carro_ir_pagar)
         }
     }
 

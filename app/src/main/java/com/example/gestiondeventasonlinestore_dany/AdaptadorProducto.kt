@@ -45,8 +45,15 @@ class AdaptadorProducto(
         holder.nomproducto.text = producto.nomProducto
         holder.tvMarca.text = producto.marca
         holder.nomdescripcion.text = producto.descripcion
-        holder.nomprecio.text = "$${String.format("%,.0f", producto.precio)}"
+        holder.nomprecio.text = context.getString(
+            R.string.moneda_formato,
+            String.format("%,.0f", producto.precio)
+        )
         holder.imagen.setImageResource(producto.imagen)
+        holder.imagen.contentDescription = context.getString(
+            R.string.content_desc_producto,
+            producto.nomProducto
+        )
 
         // Configuración del Spinner de Tallas
         val adapterTallas = ArrayAdapter(context, android.R.layout.simple_spinner_item, tallas)
@@ -86,7 +93,11 @@ class AdaptadorProducto(
             if (item.cantidad <= 0) {
                 carroCompras.removeAt(indiceExistente)
             }
-            Toast.makeText(context, "${producto.nomProducto} quitado del carrito", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.toast_producto_quitado, producto.nomProducto),
+                Toast.LENGTH_SHORT
+            ).show()
         } else {
             // Línea nueva: añadimos una copia con la talla seleccionada
             carroCompras.add(
@@ -97,7 +108,11 @@ class AdaptadorProducto(
             )
             Toast.makeText(
                 context,
-                "${producto.nomProducto} añadido (Talla: ${producto.tallaSeleccionada})",
+                context.getString(
+                    R.string.toast_producto_anadido,
+                    producto.nomProducto,
+                    producto.tallaSeleccionada
+                ),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -120,7 +135,7 @@ class AdaptadorProducto(
     override fun getItemCount(): Int = listaProducto.size
 
     private fun configurarBotonAnadir(button: MaterialButton) {
-        button.text = "Añadir"
+        button.text = context.getString(R.string.btn_anadir)
         button.setTextColor(context.getColor(R.color.black))
         button.setIconResource(android.R.drawable.ic_input_add)
         button.iconTint = ColorStateList.valueOf(context.getColor(R.color.black))
@@ -130,7 +145,7 @@ class AdaptadorProducto(
     }
 
     private fun configurarBotonQuitar(button: MaterialButton) {
-        button.text = "Quitar"
+        button.text = context.getString(R.string.btn_quitar)
         button.setTextColor(context.getColor(R.color.error))
         button.setIconResource(android.R.drawable.ic_delete)
         button.iconTint = ColorStateList.valueOf(context.getColor(R.color.error))

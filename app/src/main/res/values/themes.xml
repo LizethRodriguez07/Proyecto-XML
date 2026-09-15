@@ -15,8 +15,6 @@
         <item name="colorOnSurfaceVariant">@color/texto_secundario</item>
         <item name="colorOutline">@color/borde</item>
         <item name="colorOutlineVariant">@color/borde</item>
-        <item name="colorBackground">@color/bg_negro</item>
-        <item name="colorOnBackground">@color/texto_principal</item>
 
         <item name="colorControlNormal">@color/texto_terciario</item>
         <item name="colorControlActivated">@color/oro</item>
@@ -38,20 +36,20 @@
         <item name="cornerSize">12dp</item>
     </style>
 
-    <style name="ShapeAppearances.NavItem">
+    <style name="NavItemShape">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">14dp</item>
     </style>
 
     <!-- ============ TIPOGRAFÍA ============ -->
-    <style name="TextAppearance.TituloPantalla">
+    <style name="TextAppearance.TituloPantalla" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/texto_principal</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:letterSpacing">0.02</item>
     </style>
 
-    <style name="TextAppearance.TituloMarca">
+    <style name="TextAppearance.TituloMarca" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/oro</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
@@ -59,17 +57,17 @@
         <item name="android:fontFamily">sans-serif-condensed-bold</item>
     </style>
 
-    <style name="TextAppearance.Subtitulo">
+    <style name="TextAppearance.Subtitulo" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/texto_secundario</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="TextAppearance.SecundarioPequeño">
+    <style name="TextAppearance.SecundarioPequeño" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/texto_terciario</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="TextAppearance.TituloSeccion">
+    <style name="TextAppearance.TituloSeccion" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/texto_principal</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
@@ -157,7 +155,7 @@
     </style>
 
     <!-- ============ CHIPS ============ -->
-    <style name="Style.ChipMarca" parent="Widget.Material3.Chip.Choice">
+    <style name="Style.ChipMarca" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_background</item>
         <item name="android:textColor">@color/chip_text</item>
         <item name="checkedIconVisible">false</item>

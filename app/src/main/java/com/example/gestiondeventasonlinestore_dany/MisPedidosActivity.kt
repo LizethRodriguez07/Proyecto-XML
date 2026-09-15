@@ -2,14 +2,20 @@ package com.example.gestiondeventasonlinestore_dany
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
+import com.example.gestiondeventasonlinestore_dany.databinding.ActivityMisPedidosBinding
 
 class MisPedidosActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMisPedidosBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mis_pedidos)
+        binding = ActivityMisPedidosBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        findViewById<MaterialButton>(R.id.btnVolverPedidos).setOnClickListener {
+        binding.root.ajustarBarrasSistema()
+
+        binding.btnVolverPedidos.setOnClickListener {
             finish()
         }
     }
