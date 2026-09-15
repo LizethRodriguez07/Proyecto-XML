@@ -27,7 +27,7 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 | Capa | Tecnología |
 | --- | --- |
 | Lenguaje | Kotlin 1.9.0 |
-| UI | XML layouts + `findViewById` |
+| UI | XML layouts (ViewBinding + findViewById) |
 | Entorno de compilación | Android Gradle Plugin 8.2.0, Gradle (wrapper) |
 | SDK mínimo / objetivo | minSdk 24 (Android 7.0) / targetSdk y compileSdk 34 (Android 14) |
 | JVM | Java 11 |
@@ -92,10 +92,10 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 
 ### Diseño visual
 
-- **Tema:** oscuro (`Theme.Material3.DayNight.NoActionBar`) con fondo `#000000`.
+- **Tema:** oscuro fijo (`Theme.Material3.Dark.NoActionBar`) con fondo `#0E0E0E`.
 - **Color de acento:** dorado `#D4AF37` para botones principales, títulos y bordes de formularios.
-- **Tarjetas:** `MaterialCardView` translúcidas (`#1AFFFFFF`) con esquinas de 16dp.
-- **Tipografía:** condicional (`sans-serif-condensed-medium`, `serif`) y colores claros (`#E0E0E0`, `#FFFFFF`).
+- **Tarjetas:** `MaterialCardView` con fondo `@color/surface` (`#161616`), bordeadas y esquinas de 16dp.
+- **Tipografía:** estilos `TextAppearance.*` (títulos, marcas, subtítulos) con acentos dorados y colores claros (`#F5F5F5`, `#B0B0B0`).
 - **Formato de precios:** pesos colombianos con separador de miles (`$,.0f`).
 
 ### Recursos
