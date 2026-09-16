@@ -86,10 +86,34 @@
     <string name="mis_pedidos_titulo">MIS PEDIDOS</string>
     <string name="mis_pedidos_vacio_titulo">Sin pedidos por ahora</string>
     <string name="pedido_estado_pendiente">PENDIENTE</string>
+    <string name="pedido_estado_enviado">ENVIADO</string>
+    <string name="pedido_estado_entregado">ENTREGADO</string>
+    <string name="pedido_btn_avanzar">AVANZAR ESTADO</string>
+    <string name="pedido_btn_eliminar">ELIMINAR</string>
+    <string name="pedido_btn_ver_detalle">Ver detalle</string>
+    <string name="pedido_btn_ocultar_detalle">Ocultar detalle</string>
+    <string name="pedido_eliminar_titulo">Eliminar pedido</string>
+    <string name="pedido_eliminar_mensaje">¿Estás seguro de que deseas eliminar este pedido del historial?</string>
+    <string name="pedido_eliminar_btn">Eliminar</string>
+    <string name="pedido_estado_label">Estado: %1$s</string>
+    <string name="pedido_detalle_cliente">Cliente: %1$s</string>
+    <string name="pedido_detalle_items">%1$d artículo(s)</string>
     <string name="pedido_total">Total</string>
     <string name="pedido_formato_fecha">dd/MM/yyyy · hh:mm a</string>
     <string name="pedido_linea_producto">%1$s · %2$s</string>
     <string name="pedido_linea_cantidad">Talla %1$s · x%2$d</string>
+    <string name="promo_tag_promo">PROMO</string>
+    <string name="promo_tag_servicio">SERVICIO</string>
+    <string name="promo_tag_garantia">GARANTÍA</string>
+    <string name="promo_1_titulo">Nueva colección</string>
+    <string name="promo_1_sub">Calzado de hombre 2026</string>
+    <string name="promo_2_titulo">Envío seguro</string>
+    <string name="promo_2_sub">Entregas en San Vicente y la región</string>
+    <string name="promo_3_titulo">Garantía real</string>
+    <string name="promo_3_sub">En todas las marcas</string>
+    <string name="confianza_1_titulo">Marcas oficiales</string>
+    <string name="confianza_2_titulo">Envío seguro</string>
+    <string name="confianza_3_titulo">Atención personalizada</string>
     <string name="mis_pedidos_vacio">"Aún no tienes pedidos registrados.\n\nCuando realices tu primera compra, podrás ver aquí el historial de tus pedidos."</string>
     <string name="btn_volver">VOLVER</string>
 
@@ -105,11 +129,22 @@
 
     <!-- Catálogo -->
     <string name="header_titulo">STORE DANY</string>
-    <string name="header_subtitulo">Catálogo de calzado para hombre</string>
+    <string name="header_subtitulo">Gestión de ventas online</string>
     <string name="monograma">SD</string>
+    <string name="hero_frase">Bienvenido, aquí empieza tu estilo</string>
+    <string name="btn_ver_catalogo">VER CATÁLOGO</string>
     <string name="ver_mi_carrito">VER MI CARRITO</string>
     <string name="main_ver_carrito_conteo">VER MI CARRITO (%1$d)</string>
     <string name="main_mi_carrito_conteo">Mi Carrito (%1$d)</string>
+
+    <!-- Detalle de producto -->
+    <string name="detalle_titulo">Detalle del Producto</string>
+    <string name="detalle_subtitulo">Elige tu talla y añádelo al carrito</string>
+    <string name="detalle_talla_label">Talla:</string>
+    <string name="detalle_descripcion_titulo">Descripción ampliada</string>
+    <string name="detalle_descripcion">"Calzado deportivo de la colección %1$s, elaborado en materiales de alta calidad con plantilla acolchada y suela antideslizante. Ideal para uso diario, combina estilo y comodidad para cualquier ocasión."</string>
+    <string name="detalle_anadir_carrito">AÑADIR AL CARRITO</string>
+    <string name="detalle_global_descripcion">"Elaborado en materiales de alta calidad, con plantilla acolchada y suela antideslizante para tu comodidad y seguridad cada día. Disponible en tallas del 37 al 42."</string>
 
     <!-- Mensajes del catálogo -->
     <string name="toast_selecciona_producto">Por favor selecciona al menos un producto</string>

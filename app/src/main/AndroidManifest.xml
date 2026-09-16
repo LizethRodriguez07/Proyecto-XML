@@ -38,6 +38,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".DetalleProductoActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".PedidoActivity"
             android:exported="false" />
 

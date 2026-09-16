@@ -19,7 +19,8 @@ class AdaptadorProducto(
     private val context: Context,
     private val listaProducto: ArrayList<Producto>,
     private val carroCompras: ArrayList<Producto>,
-    private val onCartUpdated: (Int) -> Unit
+    private val onCartUpdated: (Int) -> Unit,
+    private val onItemClick: (Producto) -> Unit
 ): RecyclerView.Adapter<AdaptadorProducto.ViewHolder>() {
 
     private val tallas = arrayOf("37", "38", "39", "40", "41", "42")
@@ -76,6 +77,10 @@ class AdaptadorProducto(
 
         holder.btnAdd.setOnClickListener {
             anadirOQuitar(holder, producto)
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(producto)
         }
 
         actualizarEstadoBoton(holder, producto)

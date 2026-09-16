@@ -48,6 +48,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val detalleLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val data = result.data
+        if (result.resultCode == RESULT_OK && data != null) {
+            val producto = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                data.getSerializableExtra(
+                    "producto_detalle",
+                    Producto::class.java
+                ) as? Producto
+            } else {
+                @Suppress("DEPRECATION")
+                data.getSerializableExtra("producto_detalle") as? Producto
+            }
+            if (producto != null) {
+                val indice = carroCompras.indexOfFirst {
+                    it.nomProducto == producto.nomProducto &&
+                        it.tallaSeleccionada == producto.tallaSeleccionada
+                }
+                if (indice != -1) {
+                    carroCompras[indice].cantidad++
+                } else {
+                    carroCompras.add(producto)
+                }
+                adapter.notifyDataSetChanged()
+                actualizarContadorCarrito()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -60,6 +90,7 @@ class MainActivity : AppCompatActivity() {
 
         configurarDrawer()
         setupNavigationView()
+        setupPromociones()
 
         // 1. Configurar RecyclerView
         setupRecyclerView()
@@ -102,6 +133,13 @@ class MainActivity : AppCompatActivity() {
         actualizarContadorCarrito()
         aplicarFiltros()
 
+        // 2.1 Vista inicial (Inicio por defecto)
+        if (savedInstanceState?.getBoolean("vista_inicio", true) != false) {
+            mostrarVistaInicio()
+        } else {
+            mostrarVistaCatalogo()
+        }
+
         // 3. Botón para ver el carrito
         binding.btnVerCarrito.setOnClickListener {
             if (carroCompras.isEmpty()) {
@@ -113,6 +151,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 irAlCarrito()
             }
+        }
+
+        // 3.1 Botón "Ver catálogo" desde Inicio
+        binding.btnVerCatalogo.setOnClickListener {
+            mostrarVistaCatalogo()
         }
     }
 
@@ -140,8 +183,12 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { item ->
             binding.drawerLayout.closeDrawers()
             when (item.itemId) {
+                R.id.nav_inicio -> {
+                    mostrarVistaInicio()
+                }
+
                 R.id.nav_catalogo -> {
-                    // Ya estamos en el catálogo
+                    mostrarVistaCatalogo()
                 }
 
                 R.id.nav_carrito -> {
@@ -175,9 +222,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.rvProductos.layoutManager = LinearLayoutManager(this)
-        adapter = AdaptadorProducto(this, listaFiltrada, carroCompras) {
-            actualizarContadorCarrito()
-        }
+        adapter = AdaptadorProducto(this, listaFiltrada, carroCompras,
+            onCartUpdated = { actualizarContadorCarrito() },
+            onItemClick = { producto ->
+                detalleLauncher.launch(
+                    Intent(this, DetalleProductoActivity::class.java)
+                        .putExtra("producto", producto)
+                )
+            }
+        )
         binding.rvProductos.adapter = adapter
     }
 
@@ -197,6 +250,54 @@ class MainActivity : AppCompatActivity() {
             }
             aplicarFiltros()
         }
+    }
+
+    private fun setupPromociones() {
+        binding.rvPromos.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvPromos.adapter = AdaptadorPromociones(
+            listOf(
+                Promocion(
+                    getString(R.string.promo_tag_promo),
+                    getString(R.string.promo_1_titulo),
+                    getString(R.string.promo_1_sub)
+                ),
+                Promocion(
+                    getString(R.string.promo_tag_servicio),
+                    getString(R.string.promo_2_titulo),
+                    getString(R.string.promo_2_sub)
+                ),
+                Promocion(
+                    getString(R.string.promo_tag_garantia),
+                    getString(R.string.promo_3_titulo),
+                    getString(R.string.promo_3_sub)
+                )
+            )
+        )
+    }
+
+    private fun mostrarVistaInicio() {
+        binding.heroCatalogo.visibility = android.view.View.VISIBLE
+        binding.rvPromos.visibility = android.view.View.VISIBLE
+        binding.filaConfianza.visibility = android.view.View.VISIBLE
+        binding.btnVerCatalogo.visibility = android.view.View.VISIBLE
+        binding.filtrosContainer.visibility = android.view.View.GONE
+        binding.rvProductos.visibility = android.view.View.GONE
+        binding.tvSinResultados.visibility = android.view.View.GONE
+        binding.navView.menu.findItem(R.id.nav_inicio)?.isChecked = true
+        binding.rvProductos.scrollToPosition(0)
+    }
+
+    private fun mostrarVistaCatalogo() {
+        binding.heroCatalogo.visibility = android.view.View.GONE
+        binding.rvPromos.visibility = android.view.View.GONE
+        binding.filaConfianza.visibility = android.view.View.GONE
+        binding.btnVerCatalogo.visibility = android.view.View.GONE
+        binding.filtrosContainer.visibility = android.view.View.VISIBLE
+        binding.rvProductos.visibility = android.view.View.VISIBLE
+        binding.navView.menu.findItem(R.id.nav_catalogo)?.isChecked = true
+        binding.rvProductos.scrollToPosition(0)
+        aplicarFiltros()
     }
 
     private fun aplicarFiltros() {
@@ -280,7 +381,7 @@ class MainActivity : AppCompatActivity() {
                 "Reebok",
                 "Tallas: 37-42. Blanco/Verde",
                 300000.0,
-                R.drawable.zapatos
+                R.drawable.reebok_classic
             )
         )
 
@@ -301,6 +402,10 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putSerializable("carro_compras_rotacion", carroCompras)
         outState.putSerializable("filtro_marca_rotacion", marcaSeleccionada)
+        outState.putBoolean(
+            "vista_inicio",
+            binding.heroCatalogo.visibility == android.view.View.VISIBLE
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

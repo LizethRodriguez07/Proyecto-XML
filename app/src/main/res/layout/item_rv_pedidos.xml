@@ -8,6 +8,8 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="12dp"
     android:layout_marginVertical="6dp"
+    android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="20dp"
     tools:context=".MisPedidosActivity">
 
@@ -57,11 +59,43 @@
             tools:text="Katherine Rodríguez" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDetalleItems"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/texto_secundario"
+                android:textSize="12sp"
+                tools:text="3 artículo(s)" />
+
+            <TextView
+                android:id="@+id/tvToggleDetalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/pedido_btn_ver_detalle"
+                android:textColor="@color/oro"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/contenedorProductos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
@@ -93,6 +127,48 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="$620.000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEliminarPedido"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="@string/pedido_btn_eliminar"
+                android:textColor="@color/error"
+                android:textSize="12sp"
+                app:cornerRadius="20dp"
+                app:icon="@android:drawable/ic_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="6dp"
+                app:iconTint="@color/error"
+                app:strokeColor="@color/error"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAvanzarPedido"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="@string/pedido_btn_avanzar"
+                android:textColor="@color/oro"
+                android:textSize="12sp"
+                app:cornerRadius="20dp"
+                app:icon="@android:drawable/arrow_up_float"
+                app:iconGravity="textStart"
+                app:iconPadding="6dp"
+                app:iconTint="@color/oro"
+                app:strokeColor="@color/oro"
+                app:strokeWidth="1dp" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

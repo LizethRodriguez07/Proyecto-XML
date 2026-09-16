@@ -61,6 +61,7 @@ class DatosPersonalesActivity : AppCompatActivity() {
 
         // 2. Selectores de ubicación y perfil guardado
         setupSelectores()
+        aplicarMascaraTelefono()
         limpiarErroresAlEscribir()
         cargarPerfil()
         restaurarSeleccion(savedInstanceState)
@@ -73,7 +74,7 @@ class DatosPersonalesActivity : AppCompatActivity() {
                 nombre = binding.etinombre.text.toString().trim(),
                 apellidos = binding.etapellidos.text.toString().trim(),
                 cedula = binding.idcedula.text.toString().trim(),
-                celular = binding.Phone.text.toString().trim(),
+                celular = binding.Phone.text.toString().replace("-", "").trim(),
                 email = binding.Email.text.toString().trim(),
                 departamento = departamentoActual ?: "",
                 municipio = municipioActual ?: "",
@@ -186,6 +187,23 @@ class DatosPersonalesActivity : AppCompatActivity() {
 
     // ===================== VALIDACIÓN =====================
 
+    private fun aplicarMascaraTelefono() {
+        binding.Phone.doAfterTextChanged { editable ->
+            editable ?: return@doAfterTextChanged
+            val original = editable.toString()
+            val digitos = original.filter { it.isDigit() }.take(10)
+            val conMascara = StringBuilder()
+            digitos.forEachIndexed { i, c ->
+                if (i == 3 || i == 6) conMascara.append('-')
+                conMascara.append(c)
+            }
+            if (conMascara.toString() != original) {
+                binding.Phone.setText(conMascara)
+                binding.Phone.setSelection(conMascara.length)
+            }
+        }
+    }
+
     private fun limpiarErroresAlEscribir() {
         binding.etinombre.doAfterTextChanged { binding.tilNombre.error = null }
         binding.etapellidos.doAfterTextChanged { binding.tilApellidos.error = null }
@@ -200,7 +218,7 @@ class DatosPersonalesActivity : AppCompatActivity() {
     private fun validar(): Boolean {
         var ok = true
         val cedula = binding.idcedula.text.toString().trim()
-        val celular = binding.Phone.text.toString().trim()
+        val celular = binding.Phone.text.toString().replace("-", "").trim()
         val email = binding.Email.text.toString().trim()
 
         if (binding.etinombre.text.toString().trim().isEmpty()) {

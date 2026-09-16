@@ -14,34 +14,19 @@ object RepositorioPedidos {
         val lista = ArrayList<Pedido>()
         lista.add(pedido)
         lista.addAll(leer(context))
+        guardarLista(context, lista)
+    }
 
-        val json = JSONArray()
-        for (p in lista) {
-            val productos = JSONArray()
-            for (prod in p.productos) {
-                productos.put(
-                    JSONObject().apply {
-                        put("nomProducto", prod.nomProducto)
-                        put("marca", prod.marca)
-                        put("descripcion", prod.descripcion)
-                        put("precio", prod.precio)
-                        put("imagen", prod.imagen)
-                        put("tallaSeleccionada", prod.tallaSeleccionada)
-                        put("cantidad", prod.cantidad)
-                    }
-                )
-            }
-            json.put(
-                JSONObject().apply {
-                    put("id", p.id)
-                    put("nombreCliente", p.nombreCliente)
-                    put("total", p.total)
-                    put("fecha", p.fecha)
-                    put("productos", productos)
-                }
-            )
+    fun actualizarEstado(context: Context, id: Long, nuevoEstado: String) {
+        val lista = leer(context).map {
+            if (it.id == id) it.copy(estado = nuevoEstado) else it
         }
-        prefs(context).edit().putString(KEY_LISTA, json.toString()).apply()
+        guardarLista(context, ArrayList(lista))
+    }
+
+    fun eliminar(context: Context, id: Long) {
+        val lista = leer(context).filterNot { it.id == id }
+        guardarLista(context, ArrayList(lista))
     }
 
     fun leer(context: Context): List<Pedido> {
@@ -73,7 +58,8 @@ object RepositorioPedidos {
                         nombreCliente = obj.optString("nombreCliente"),
                         productos = productos,
                         total = obj.optDouble("total"),
-                        fecha = obj.optLong("fecha")
+                        fecha = obj.optLong("fecha"),
+                        estado = obj.optString("estado", "PENDIENTE")
                     )
                 )
             }
@@ -81,6 +67,37 @@ object RepositorioPedidos {
         } catch (e: Exception) {
             emptyList()
         }
+    }
+
+    private fun guardarLista(context: Context, lista: ArrayList<Pedido>) {
+        val json = JSONArray()
+        for (p in lista) {
+            val productos = JSONArray()
+            for (prod in p.productos) {
+                productos.put(
+                    JSONObject().apply {
+                        put("nomProducto", prod.nomProducto)
+                        put("marca", prod.marca)
+                        put("descripcion", prod.descripcion)
+                        put("precio", prod.precio)
+                        put("imagen", prod.imagen)
+                        put("tallaSeleccionada", prod.tallaSeleccionada)
+                        put("cantidad", prod.cantidad)
+                    }
+                )
+            }
+            json.put(
+                JSONObject().apply {
+                    put("id", p.id)
+                    put("nombreCliente", p.nombreCliente)
+                    put("total", p.total)
+                    put("fecha", p.fecha)
+                    put("estado", p.estado)
+                    put("productos", productos)
+                }
+            )
+        }
+        prefs(context).edit().putString(KEY_LISTA, json.toString()).apply()
     }
 
     private fun prefs(context: Context): SharedPreferences =

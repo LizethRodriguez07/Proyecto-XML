@@ -12,14 +12,15 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 
 - **Pantalla de bienvenida (Splash) rediseñada:** logo con animación de entrada, tarjeta de bienvenida con mensaje de la propietaria, enlace para consultar los términos y condiciones completos y casilla de aceptación obligatoria (el botón "INICIO STORE DANY" solo se activa al aceptar).
 - **Términos y Condiciones:** pantalla dedicada (`TerminosCondicionesActivity`) con aviso formal de aceptación e 10 cláusulas numeradas en tarjetas (aceptación, servicio, asesoría, catálogo, proceso de compra, precios, envíos, datos personales conforme a la Ley 1581 de 2012, contacto y respaldo/garantía), barra de herramientas con flecha atrás y botones Aceptar/Cancelar. Al regresar a la pantalla de bienvenida, la casilla se marca automáticamente si se aceptó.
-- **Catálogo de productos:** lista de calzado (Nike Air Trainer, Adidas Forum, Puma Street, New Balance 1300 y Reebok Classic) con imagen, marca, descripción, precio en pesos colombianos y selector de tallas (37–42).
+- **Catálogo de productos:** lista de calzado (Nike Air Trainer, Adidas Forum, Puma Street, New Balance 1300 y Reebok Classic) con imagen, marca, descripción, precio en pesos colombianos y selector de tallas (37–42). El Reebok Classic usa una foto real del modelo (imagen libre desde Wikimedia Commons).
+- **Detalle de producto (pantalla dedicada):** al tocar un producto del catálogo se abre `DetalleProductoActivity` con imagen grande, marca, nombre, precio, selector de talla y descripción ampliada; el botón "Añadir al carrito" suma el producto a la talla elegida (y fusiona líneas repetidas).
 - **Cabecera destacada del catálogo:** tarjeta hero con monograma de la marca, título/subtítulo y contador de unidades en el carrito que se muestra dinámicamente al agregar productos.
 - **Búsqueda y filtros por marca:** campo de búsqueda por nombre y chips (Todos, Nike, Adidas, Puma, New Balance, Reebok) que filtran el catálogo en tiempo real, con aviso "sin resultados".
 - **Menú lateral (Navigation Drawer):** acceso al catálogo, carrito, pedidos, datos personales, ayuda y acerca de; con cabecera de la tienda.
 - **Carrito de compras completo:** cada producto muestra imagen, marca, talla editable, precio unitario, control de cantidad (−/+) y subtotal por línea, con contador en tiempo real, eliminación de ítems y total a pagar calculado automáticamente.
 - **Gestión de tallas y cantidades:** cambiar la talla desde el carrito y fusiona automáticamente líneas del mismo producto y talla.
-- **Mis pedidos:** historial persistente de pedidos (SharedPreferences/JSON): cada compra confirmada se guarda automáticamente y se lista con fecha y hora, nombre del cliente, líneas de producto (producto · marca y talla × cantidad), total y estado inicial "Pendiente"; si aún no hay compras muestra el estado vacío diseñado.
-- **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). El formulario se organiza en tarjetas por secciones (datos del cliente y dirección de envío), con campos en filas de dos columnas, iconos identificativos en cada campo y selectores desplegables para departamento y municipio. La selección de departamento/municipio se conserva al rotar la pantalla.
+- **Mis pedidos:** historial persistente de pedidos (SharedPreferences/JSON): cada compra confirmada se guarda automáticamente y se lista con fecha y hora, nombre del cliente, total y estado (Pendiente → Enviado → Entregado). Cada tarjeta tiene detalle ampliable (líneas de producto con talla × cantidad), botón "Avanzar estado" para mover entre fases y botón "Eliminar" con confirmación; si aún no hay compras muestra el estado vacío diseñado.
+- **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). La cédula usa teclado numérico de 10 dígitos y el celular una **máscara automática de escritura `300-000-0000`** (teclado `phone`), con guiones insertados mientras se digita y validación sin espacios. El formulario se organiza en tarjetas por secciones (datos del cliente y dirección de envío), con campos en filas de dos columnas, iconos identificativos en cada campo y selectores desplegables para departamento y municipio. La selección de departamento/municipio se conserva al rotar la pantalla.
 - **Perfil de cliente persistente:** los datos ingresados se guardan localmente (SharedPreferences) y autocompletan los formularios futuros; el ítem "Mi Perfil" del menú permite crearlos o editarlos antes de comprar.
 - **Confirmación de pedido:** pantalla de éxito con mensaje de agradecimiento y botón para volver al inicio (reinicia la navegación y limpia el carrito).
 - **Ayuda y asesoría (pantalla dedicada):** canales de atención directa con acciones funcionales (llamada telefónica vía `tel:` y WhatsApp vía `wa.me`), horario de atención con indicador dinámico "Abierto/Cerrado ahora" según día y hora, punto de venta físico y preguntas frecuentes.
@@ -51,16 +52,18 @@ SplashActivity
    ├────► TerminosCondicionesActivity
    │  (acepta términos y continúa)
    ▼
-MainActivity (catálogo + menú lateral / Drawer)
+MainActivity (Inicio + Catálogo + menú lateral / Drawer)
+   │  tocar un producto ──► DetalleProductoActivity ──► (Añadir al carrito, vuelve)
    │  "Mi Carrito" ──► CarroComprasActivity ──► DatosPersonalesActivity (compra) ──► PedidoActivity ──► (vuelve a MainActivity)
-   │  "Mis Pedidos" ──► MisPedidosActivity (historial de pedidos)
+   │  "Mis Pedidos" ──► MisPedidosActivity (historial, estado y eliminación de pedidos)
    │  "Mi Perfil" ──► DatosPersonalesActivity (modo perfil: guarda y vuelve)
 ```
 
 - `SplashActivity` lanza `TerminosCondicionesActivity` con `registerForActivityResult` y marca la casilla automáticamente si acepta (`RESULT_OK`).
 - `MainActivity` es el catálogo principal; administra la lista de productos, la búsqueda/filtros y el carrito en memoria, y está envuelta en un `DrawerLayout` con `NavigationView`.
 - `CarroComprasActivity` recibe el carrito vía `Intent.getSerializableExtra` (con manejo compatible para Android 13+) y lo devuelve actualizado.
-- `MisPedidosActivity` es accesible desde el menú lateral y muestra el historial de pedidos persistente (o el estado vacío si aún no hay compras).
+- `DetalleProductoActivity` recibe un `Producto`, muestra su información ampliada con selector de talla y devuelve con `RESULT_OK` el producto con la talla elegida; `MainActivity` lo añade (o fusiona) al carrito.
+- `MisPedidosActivity` es accesible desde el menú lateral y muestra el historial de pedidos persistente, permite ampliar el detalle de cada tarjeta, avanzar su estado (Pendiente→Enviado→Entregado) y eliminarlo con confirmación (o muestra el estado vacío si aún no hay compras).
 - `DatosPersonalesActivity` valida los campos del cliente (cédula y celular de 10 dígitos, email con formato), selecciona departamento/municipio en cascada y redirige a la confirmación; en modo perfil ("Mi Perfil") guarda los datos y regresa.
 - `PedidoActivity` limpia la pila de actividades (`FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK`) al regresar.
 - El perfil del cliente se persiste con `SharedPreferences` (JSON) mediante `RepositorioPerfil` y autocompleta los formularios futuros.
@@ -79,18 +82,19 @@ MainActivity (catálogo + menú lateral / Drawer)
 app/src/main/java/com/example/gestiondeventasonlinestore_dany/
 ├── SplashActivity.kt             # Bienvenida rediseñada + enlace a términos
 ├── TerminosCondicionesActivity.kt # Documento de términos (Aceptar/Cancelar)
-├── MainActivity.kt               # Catálogo, búsqueda, filtros y control del carrito
+├── MainActivity.kt               # Inicio + Catálogo, búsqueda, filtros y control del carrito
 ├── AdaptadorProducto.kt          # Adapter del RecyclerView de catálogo
+├── DetalleProductoActivity.kt    # Detalle del producto (imagen grande, talla, descripción)
 ├── CarroComprasActivity.kt       # Carrito completo (resumen + total)
 ├── AdaptadorCarroCompras.kt      # Adapter del carrito (marca, precio, cantidad, talla)
 ├── DatosPersonalesActivity.kt    # Formulario de compra y perfil (modo perfil)
 ├── PedidoActivity.kt             # Confirmación de pedido
-├── MisPedidosActivity.kt         # Historial de pedidos (lista o estado vacío)
-├── AdaptadorPedidos.kt           # Adapter del historial de Mis Pedidos
+├── MisPedidosActivity.kt         # Historial de pedidos (detalle, estado y eliminación)
+├── AdaptadorPedidos.kt           # Adapter del historial (detalle ampliable + acciones)
 ├── AyudaActivity.kt              # Canales de atención, horario dinámico y FAQ
 ├── AcercaDeActivity.kt           # Hero de bienvenida + Misión y Visión
 ├── Producto.kt                   # Modelo del producto
-├── Pedido.kt                     # Modelo del pedido (cliente, productos, total, fecha)
+├── Pedido.kt                     # Modelo del pedido (cliente, productos, total, fecha, estado)
 ├── Cliente.kt                    # Modelo del cliente/perfil
 ├── RepositorioPedidos.kt         # Persistencia del historial (SharedPreferences/JSON)
 ├── RepositorioPerfil.kt          # Persistencia del perfil (SharedPreferences/JSON)
@@ -158,16 +162,20 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 
 **Hecho**
 - [x] Gestión de cantidades y tallas por producto desde el carrito (fusión de líneas por talla).
-- [x] Rediseño del menú de navegación con cajón lateral (Navigation Drawer).
+- [x] Rediseño del menú de navegación con cajón lateral (Navigation Drawer) y vistas separadas de Inicio y Catálogo.
 - [x] Búsqueda y filtros por marca en el catálogo (quedan pendientes los filtros por talla y favoritos).
 - [x] Rediseño del procedimiento de Términos y Condiciones (pantalla dedicada con 10 cláusulas y aceptación obligatoria).
 - [x] Perfil de cliente persistente (SharedPreferences) con autocompletado y selector de departamento/municipio en cascada con validaciones.
-- [x] Pulido del catálogo y del carrito (tarjetas aireadas) y cabecera hero con contador de unidades; incorporación del producto Reebok Classic.
+- [x] Pulido del catálogo y del carrito (tarjetas aireadas), cabecera hero con contador de unidades y carrusel de promociones; incorporación del producto Reebok Classic con foto real (Wikimedia Commons).
 - [x] Diseño del estado vacío de Mis Pedidos y persistencia de la selección de ubicación al rotar el formulario.
-- [x] Historial de pedidos persistente (SharedPreferences/JSON) mostrado en Mis Pedidos con fecha, productos, total y estado Pendiente.
+- [x] Historial de pedidos persistente (SharedPreferences/JSON) mostrado en Mis Pedidos con fecha, productos, total y estado.
+- [x] Máscara de escritura para el celular (`300-000-0000`) y teclado `phone` para cédula y celular en el formulario.
+- [x] Pantalla de detalle de producto (imagen grande, talla, descripción ampliada y añadir al carrito desde el detalle).
+- [x] Mis Pedidos: detalle ampliable por tarjeta, avance de estado (Pendiente → Enviado → Entregado) persistente y eliminación con confirmación.
 - [x] Adopción de ViewBinding en toda la app y limpieza del código muerto de la plantilla login (`data/`, `catalogo.xml`).
 
 **Corto plazo**
+- [ ] Sección de **método de pago en el carrito** (elegido en el propio carrito): NEQUI, Daviplata y Efectivo contra entrega, con número de cuenta (validado por método) y monto a pagar mostrado; los datos de pago se guardan en el pedido.
 - [ ] Enviar el resumen del pedido (productos + datos del cliente) por **WhatsApp** a un asesor comercial.
 - [ ] Persistencia del catálogo con **Room** (SQLite); el perfil del cliente y el historial de pedidos ya usan SharedPreferences.
 - [ ] Filtro por talla y sistema de favoritos.
@@ -175,10 +183,9 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 **Mediano plazo**
 - [ ] Catálogo dinámico consumido desde una **API/backend** (en lugar de datos fijos en memoria).
 - [ ] Autenticación de usuarios (registro e inicio de sesión) con sesión persistente.
-- [ ] Estado de pedidos y seguimiento (pendiente, aprobado, enviado, entregado).
 
 **Largo plazo**
-- [ ] Pasarela de pagos (PSE, tarjeta de crédito/débito, NEQUI/Daviplata).
+- [ ] Pasarela de pagos en línea (PSE, tarjeta de crédito/débito).
 - [ ] Módulo de administración para gestionar productos, stock, precios y promociones.
 - [ ] Notificaciones push para confirmación y envío de pedidos.
 - [ ] Soporte de temas claro/oscuro e internacionalización.

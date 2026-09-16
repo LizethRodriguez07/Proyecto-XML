@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Style.Tarjeta"
+    android:layout_width="250dp"
+    android:layout_height="96dp"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="18dp"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="4dp"
+        android:layout_height="56dp"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="14dp"
+        app:cardBackgroundColor="@color/oro"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTagPromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.12"
+            android:textColor="@color/oro"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            tools:text="PROMO" />
+
+        <TextView
+            android:id="@+id/tvTituloPromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif-condensed-bold"
+            android:textColor="@color/texto_principal"
+            android:textSize="15sp"
+            tools:text="Nueva colección" />
+
+        <TextView
+            android:id="@+id/tvSubPromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/texto_terciario"
+            android:textSize="12sp"
+            tools:text="Calzado de hombre 2026" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

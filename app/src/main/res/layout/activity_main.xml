@@ -30,65 +30,79 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Cabecera destacada -->
+<!-- Hero cinemático -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/heroCatalogo"
-            style="@style/Style.TarjetaResaltada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@color/bg_negro"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
-                    android:background="@drawable/bg_circulo_numero"
-                    android:fontFamily="sans-serif-condensed-bold"
-                    android:gravity="center"
-                    android:text="@string/monograma"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:background="@drawable/bg_hero_cine"
+                    android:gravity="center"
+                    android:minHeight="160dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
+                        android:background="@drawable/bg_circulo_numero"
                         android:fontFamily="sans-serif-condensed-bold"
+                        android:gravity="center"
+                        android:text="@string/monograma"
+                        android:textColor="@color/black"
+                        android:textSize="26sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="sans-serif-condensed-bold"
+                        android:letterSpacing="0.02"
                         android:text="@string/header_titulo"
                         android:textColor="@color/texto_principal"
-                        android:textSize="20sp" />
+                        android:textSize="26sp" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="4dp"
+                        android:letterSpacing="0.04"
                         android:text="@string/header_subtitulo"
-                        android:textColor="@color/texto_secundario"
+                        android:textColor="@color/oro"
                         android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:letterSpacing="0.01"
+                        android:text="@string/hero_frase"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/contadorBannerCard"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="12dp"
                     android:visibility="gone"
                     app:cardBackgroundColor="@color/oro"
                     app:cardCornerRadius="23dp"
@@ -110,8 +124,152 @@
                             android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
+            </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- Carrusel de promociones -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPromos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/heroCatalogo" />
+
+        <!-- Fila de confianza -->
+        <LinearLayout
+            android:id="@+id/filaConfianza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvPromos">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Style.Tarjeta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="14dp">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:contentDescription="@string/confianza_1_titulo"
+                        android:tint="@color/oro"
+                        app:srcCompat="@drawable/ic_escudo" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="@string/confianza_1_titulo"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Style.Tarjeta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="14dp">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:contentDescription="@string/confianza_2_titulo"
+                        android:tint="@color/oro"
+                        app:srcCompat="@drawable/ic_casa" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="@string/confianza_2_titulo"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Style.Tarjeta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="14dp">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:contentDescription="@string/confianza_3_titulo"
+                        android:tint="@color/oro"
+                        app:srcCompat="@drawable/ic_persona" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="@string/confianza_3_titulo"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Botón ir al catálogo (solo en Inicio) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerCatalogo"
+            style="@style/Style.BotonDorado"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="14dp"
+            android:text="@string/btn_ver_catalogo"
+            android:letterSpacing="0.08"
+            app:icon="@drawable/ic_nav_catalogo"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            app:iconTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filaConfianza" />
 
         <!-- Búsqueda y filtros -->
         <LinearLayout
@@ -124,7 +282,7 @@
             android:paddingEnd="16dp"
             android:paddingBottom="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/heroCatalogo">
+            app:layout_constraintTop_toBottomOf="@id/btnVerCatalogo">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tlBuscar"

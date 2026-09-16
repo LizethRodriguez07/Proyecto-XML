@@ -3,8 +3,13 @@
 
     <group android:id="@+id/group_principal" android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_catalogo"
+            android:id="@+id/nav_inicio"
             android:checked="true"
+            android:icon="@drawable/ic_nav_inicio"
+            android:title="Inicio" />
+
+        <item
+            android:id="@+id/nav_catalogo"
             android:icon="@drawable/ic_nav_catalogo"
             android:title="Catálogo" />
 
