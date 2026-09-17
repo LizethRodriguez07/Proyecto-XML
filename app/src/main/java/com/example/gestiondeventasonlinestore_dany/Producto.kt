@@ -10,6 +10,13 @@ data class Producto(
     val imagen: Int,
     var tallaSeleccionada: String = "",
     var cantidad: Int = 1
-) : Serializable
+) : Serializable {
+
+    val color: String
+        get() {
+            val indice = descripcion.indexOf('.')
+            return if (indice >= 0) descripcion.substring(indice + 1).trim() else descripcion
+        }
+}
 
 

@@ -19,8 +19,10 @@ class AdaptadorProducto(
     private val context: Context,
     private val listaProducto: ArrayList<Producto>,
     private val carroCompras: ArrayList<Producto>,
+    private val favoritos: HashSet<String>,
     private val onCartUpdated: (Int) -> Unit,
-    private val onItemClick: (Producto) -> Unit
+    private val onItemClick: (Producto) -> Unit,
+    private val onToggleFavorito: (Producto) -> Unit
 ): RecyclerView.Adapter<AdaptadorProducto.ViewHolder>() {
 
     private val tallas = arrayOf("37", "38", "39", "40", "41", "42")
@@ -33,6 +35,9 @@ class AdaptadorProducto(
         val imagen: ImageView = itemView.findViewById(R.id.imageView3)
         val btnAdd: MaterialButton = itemView.findViewById(R.id.btn_add_item)
         val spTallas: Spinner = itemView.findViewById(R.id.spTallas)
+        val cardFavorito: com.google.android.material.card.MaterialCardView =
+            itemView.findViewById(R.id.cardFavorito)
+        val imgFavorito: ImageView = itemView.findViewById(R.id.imgFavorito)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -77,6 +82,18 @@ class AdaptadorProducto(
 
         holder.btnAdd.setOnClickListener {
             anadirOQuitar(holder, producto)
+        }
+
+        holder.imgFavorito.imageTintList = ColorStateList.valueOf(
+            if (favoritos.contains(producto.nomProducto)) context.getColor(R.color.oro)
+            else context.getColor(R.color.texto_secundario)
+        )
+        holder.imgFavorito.contentDescription = context.getString(
+            R.string.content_desc_corazon,
+            producto.nomProducto
+        )
+        holder.cardFavorito.setOnClickListener {
+            onToggleFavorito(producto)
         }
 
         holder.itemView.setOnClickListener {

@@ -19,10 +19,10 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 - **Menú lateral (Navigation Drawer):** acceso al catálogo, carrito, pedidos, datos personales, ayuda y acerca de; con cabecera de la tienda.
 - **Carrito de compras completo:** cada producto muestra imagen, marca, talla editable, precio unitario, control de cantidad (−/+) y subtotal por línea, con contador en tiempo real, eliminación de ítems y total a pagar calculado automáticamente.
 - **Gestión de tallas y cantidades:** cambiar la talla desde el carrito y fusiona automáticamente líneas del mismo producto y talla.
-- **Mis pedidos:** historial persistente de pedidos (SharedPreferences/JSON): cada compra confirmada se guarda automáticamente y se lista con fecha y hora, nombre del cliente, total y estado (Pendiente → Enviado → Entregado). Cada tarjeta tiene detalle ampliable (líneas de producto con talla × cantidad), botón "Avanzar estado" para mover entre fases y botón "Eliminar" con confirmación; si aún no hay compras muestra el estado vacío diseñado.
+- **Mis pedidos:** historial persistente de pedidos (SharedPreferences/JSON): cada compra confirmada se guarda automáticamente y se lista con fecha y hora, nombre del cliente, total y estado (Pendiente → Enviado → Entregado). Cada tarjeta tiene detalle ampliable con datos formales del cliente (cédula, celular, email), dirección de envío, líneas de producto organizadas por marca, talla, color y cantidad, y el resumen del pago; botón "Avanzar estado" para mover entre fases y botón "Eliminar" con confirmación; si aún no hay compras muestra el estado vacío diseñado.
 - **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). La cédula usa teclado numérico de 10 dígitos y el celular una **máscara automática de escritura `300-000-0000`** (teclado `phone`), con guiones insertados mientras se digita y validación sin espacios. El formulario se organiza en tarjetas por secciones (datos del cliente y dirección de envío), con campos en filas de dos columnas, iconos identificativos en cada campo y selectores desplegables para departamento y municipio. La selección de departamento/municipio se conserva al rotar la pantalla.
 - **Perfil de cliente persistente:** los datos ingresados se guardan localmente (SharedPreferences) y autocompletan los formularios futuros; el ítem "Mi Perfil" del menú permite crearlos o editarlos antes de comprar.
-- **Confirmación de pedido:** pantalla de éxito con mensaje de agradecimiento y botón para volver al inicio (reinicia la navegación y limpia el carrito).
+- **Confirmación de pedido:** factura presentada al cliente (pantalla de éxito) con N° de factura, fecha, datos del cliente (nombre, cédula, celular, email), dirección de envío, desglose de productos (marca, talla, color, cantidad, precio), total a pagar y nota del método de pago elegido en el carrito (NEQUI, Daviplata o Efectivo contra entrega); incluye botón para volver al inicio (reinicia la navegación y limpia el carrito).
 - **Ayuda y asesoría (pantalla dedicada):** canales de atención directa con acciones funcionales (llamada telefónica vía `tel:` y WhatsApp vía `wa.me`), horario de atención con indicador dinámico "Abierto/Cerrado ahora" según día y hora, punto de venta físico y preguntas frecuentes.
 - **Acerca de (pantalla dedicada):** hero de bienvenida de la propietaria con monograma de la marca, tarjetas de Misión y Visión, ubicación del negocio y versión.
 - **Diseño premium:** interfaz oscura con acentos dorados, fondos negros, tarjetas Material con bordes redondeados (ítems de catálogo y carrito con imagen destacada, divisor y fila Talla/Precio), menú lateral con icono de hamburguesa dorado y de mayor grosor, y componentes Material Components (MaterialButton, MaterialCardView, TextInputLayout, MaterialCheckBox, MaterialToolbar).
@@ -163,7 +163,7 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 **Hecho**
 - [x] Gestión de cantidades y tallas por producto desde el carrito (fusión de líneas por talla).
 - [x] Rediseño del menú de navegación con cajón lateral (Navigation Drawer) y vistas separadas de Inicio y Catálogo.
-- [x] Búsqueda y filtros por marca en el catálogo (quedan pendientes los filtros por talla y favoritos).
+- [x] Búsqueda y filtros por marca en el catálogo, ampliados con el modo **Favoritos**.
 - [x] Rediseño del procedimiento de Términos y Condiciones (pantalla dedicada con 10 cláusulas y aceptación obligatoria).
 - [x] Perfil de cliente persistente (SharedPreferences) con autocompletado y selector de departamento/municipio en cascada con validaciones.
 - [x] Pulido del catálogo y del carrito (tarjetas aireadas), cabecera hero con contador de unidades y carrusel de promociones; incorporación del producto Reebok Classic con foto real (Wikimedia Commons).
@@ -173,23 +173,26 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 - [x] Pantalla de detalle de producto (imagen grande, talla, descripción ampliada y añadir al carrito desde el detalle).
 - [x] Mis Pedidos: detalle ampliable por tarjeta, avance de estado (Pendiente → Enviado → Entregado) persistente y eliminación con confirmación.
 - [x] Adopción de ViewBinding en toda la app y limpieza del código muerto de la plantilla login (`data/`, `catalogo.xml`).
+- [x] Animación sutil de entrada/aparición (fade + deslizamiento escalonado) en el catálogo y el carrusel de promociones.
+- [x] Ajuste visual de las tarjetas del catálogo (fila talla/precio/botón con ancho estable y descripción a una línea) y **chips de color** con punto indicador en el detalle de producto.
 
 **Corto plazo**
-- [ ] Sección de **método de pago en el carrito** (elegido en el propio carrito): NEQUI, Daviplata y Efectivo contra entrega, con número de cuenta (validado por método) y monto a pagar mostrado; los datos de pago se guardan en el pedido.
+- [x] Sección de **método de pago en el carrito** (elegido en el propio carrito): NEQUI, Daviplata y Efectivo contra entrega, con número de cuenta (validado por método) y monto a pagar mostrado; los datos de pago se guardan en el pedido.
+- [x] **Factura formal** al confirmar el pedido (cliente, envío, líneas por marca/talla/color/cantidad, total y método de pago) y **detalle ampliable formal** en Mis Pedidos con contacto y dirección del cliente.
+- [x] **Sistema de favoritos** persistente (SharedPreferences): corazón en las tarjetas del catálogo y en el detalle de producto, filtro "FAVORITOS" en el catálogo y acceso directo desde el menú lateral. El filtro por talla se descarta por no ser necesario.
 - [ ] Enviar el resumen del pedido (productos + datos del cliente) por **WhatsApp** a un asesor comercial.
 - [ ] Persistencia del catálogo con **Room** (SQLite); el perfil del cliente y el historial de pedidos ya usan SharedPreferences.
-- [ ] Filtro por talla y sistema de favoritos.
 
 **Mediano plazo**
 - [ ] Catálogo dinámico consumido desde una **API/backend** (en lugar de datos fijos en memoria).
 - [ ] Autenticación de usuarios (registro e inicio de sesión) con sesión persistente.
 
 **Largo plazo**
-- [ ] Pasarela de pagos en línea (PSE, tarjeta de crédito/débito).
 - [ ] Módulo de administración para gestionar productos, stock, precios y promociones.
 - [ ] Notificaciones push para confirmación y envío de pedidos.
-- [ ] Soporte de temas claro/oscuro e internacionalización.
 - [ ] Cobertura de pruebas unitarias e instrumentadas.
+
+> Nota sobre pagos: la gestión del pago queda cubierta con los métodos elegidos en el carrito (NEQUI, Daviplata y Efectivo contra entrega), guardados en cada pedido. Una pasarela de pagos en línea (PSE/tarjeta) **no es necesaria** en el modelo de negocio actual; tampoco se requieren temas claro/oscuro ni internacionalización.
 
 ## Licencia
 

@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private var listaFiltrada = ArrayList<Producto>()
     private var marcaSeleccionada: String? = null
     private var carroCompras = ArrayList<Producto>()
+    private val favoritos = HashSet<String>()
+    private var soloFavoritos = false
 
     private val carroLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private val detalleLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
+        sincronizarFavoritos()
         val data = result.data
         if (result.resultCode == RESULT_OK && data != null) {
             val producto = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -92,11 +95,22 @@ class MainActivity : AppCompatActivity() {
         setupNavigationView()
         setupPromociones()
 
+        favoritos.clear()
+        favoritos.addAll(RepositorioFavoritos.leer(this))
+
         // 1. Configurar RecyclerView
         setupRecyclerView()
 
         // 2. Buscador y filtros por marca
         configurarBuscador()
+
+        binding.chipFavoritos.setOnCheckedChangeListener { _, checked ->
+            soloFavoritos = checked
+            if (soloFavoritos) {
+                mostrarVistaCatalogo()
+            }
+            aplicarFiltros()
+        }
 
         // 3. Llenar la lista
         agregarProductos()
@@ -195,6 +209,15 @@ class MainActivity : AppCompatActivity() {
                     irAlCarrito()
                 }
 
+                R.id.nav_favoritos -> {
+                    if (binding.chipFavoritos.isChecked) {
+                        binding.chipFavoritos.isChecked = false
+                    } else {
+                        mostrarVistaCatalogo()
+                        binding.chipFavoritos.isChecked = true
+                    }
+                }
+
                 R.id.nav_pedidos -> {
                     startActivity(Intent(this, MisPedidosActivity::class.java))
                 }
@@ -222,13 +245,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.rvProductos.layoutManager = LinearLayoutManager(this)
-        adapter = AdaptadorProducto(this, listaFiltrada, carroCompras,
+        adapter = AdaptadorProducto(this, listaFiltrada, carroCompras, favoritos,
             onCartUpdated = { actualizarContadorCarrito() },
             onItemClick = { producto ->
                 detalleLauncher.launch(
                     Intent(this, DetalleProductoActivity::class.java)
                         .putExtra("producto", producto)
                 )
+            },
+            onToggleFavorito = { producto ->
+                toggleFavorito(producto)
             }
         )
         binding.rvProductos.adapter = adapter
@@ -284,6 +310,7 @@ class MainActivity : AppCompatActivity() {
         binding.filtrosContainer.visibility = android.view.View.GONE
         binding.rvProductos.visibility = android.view.View.GONE
         binding.tvSinResultados.visibility = android.view.View.GONE
+        binding.btnVerCarrito.visibility = android.view.View.GONE
         binding.navView.menu.findItem(R.id.nav_inicio)?.isChecked = true
         binding.rvProductos.scrollToPosition(0)
     }
@@ -295,8 +322,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnVerCatalogo.visibility = android.view.View.GONE
         binding.filtrosContainer.visibility = android.view.View.VISIBLE
         binding.rvProductos.visibility = android.view.View.VISIBLE
+        binding.btnVerCarrito.visibility = android.view.View.VISIBLE
         binding.navView.menu.findItem(R.id.nav_catalogo)?.isChecked = true
         binding.rvProductos.scrollToPosition(0)
+        binding.rvProductos.scheduleLayoutAnimation()
         aplicarFiltros()
     }
 
@@ -310,8 +339,9 @@ class MainActivity : AppCompatActivity() {
                 producto.marca.lowercase().contains(texto)
             val coincideMarca = marcaSeleccionada == null ||
                 producto.marca.equals(marcaSeleccionada, ignoreCase = true)
+            val coincideFavorito = !soloFavoritos || favoritos.contains(producto.nomProducto)
 
-            if (coincideTexto && coincideMarca) {
+            if (coincideTexto && coincideMarca && coincideFavorito) {
                 listaFiltrada.add(producto)
             }
         }
@@ -319,6 +349,47 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
         binding.tvSinResultados.visibility =
             if (listaFiltrada.isEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+        if (listaFiltrada.isEmpty()) {
+            binding.tvSinResultados.text = when {
+                soloFavoritos && favoritos.isEmpty() -> getString(R.string.fav_vacio_sub)
+                soloFavoritos -> getString(R.string.fav_sin_resultados)
+                else -> getString(R.string.sin_resultados)
+            }
+        }
+    }
+
+    private fun toggleFavorito(producto: Producto) {
+        val clave = producto.nomProducto
+        val estaba = favoritos.contains(clave)
+        if (estaba) {
+            favoritos.remove(clave)
+            Toast.makeText(
+                this,
+                getString(R.string.toast_favorito_quitado, producto.nomProducto),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            favoritos.add(clave)
+            Toast.makeText(
+                this,
+                getString(R.string.toast_favorito_anadido, producto.nomProducto),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        RepositorioFavoritos.guardar(this, favoritos)
+        if (soloFavoritos && favoritos.isEmpty()) {
+            binding.chipFavoritos.isChecked = false
+        }
+        aplicarFiltros()
+    }
+
+    private fun sincronizarFavoritos() {
+        favoritos.clear()
+        favoritos.addAll(RepositorioFavoritos.leer(this))
+        if (soloFavoritos && favoritos.isEmpty()) {
+            binding.chipFavoritos.isChecked = false
+        }
+        adapter.notifyDataSetChanged()
     }
 
     private fun actualizarContadorCarrito() {

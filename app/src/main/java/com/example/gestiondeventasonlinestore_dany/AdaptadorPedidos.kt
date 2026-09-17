@@ -31,6 +31,9 @@ class AdaptadorPedidos(
         val tvDetalleItems: TextView = itemView.findViewById(R.id.tvDetalleItems)
         val tvToggleDetalle: TextView = itemView.findViewById(R.id.tvToggleDetalle)
         val contenedorProductos: LinearLayout = itemView.findViewById(R.id.contenedorProductos)
+        val tvDetalleContacto: TextView = itemView.findViewById(R.id.tvDetalleContacto)
+        val tvDetalleDireccion: TextView = itemView.findViewById(R.id.tvDetalleDireccion)
+        val tvDetallePago: TextView = itemView.findViewById(R.id.tvDetallePago)
         val tvTotalPedido: TextView = itemView.findViewById(R.id.tvTotalPedido)
         val btnAvanzarPedido: MaterialButton = itemView.findViewById(R.id.btnAvanzarPedido)
         val btnEliminarPedido: MaterialButton = itemView.findViewById(R.id.btnEliminarPedido)
@@ -61,25 +64,79 @@ class AdaptadorPedidos(
                 holder.contenedorProductos,
                 false
             )
-            fila.findViewById<TextView>(R.id.tvLineaProducto).text =
-                context.getString(
-                    R.string.pedido_linea_producto,
-                    producto.nomProducto,
-                    producto.marca
-                )
-            fila.findViewById<TextView>(R.id.tvLineaCantidad).text =
-                context.getString(
-                    R.string.pedido_linea_cantidad,
-                    producto.tallaSeleccionada,
-                    producto.cantidad
-                )
+            fila.findViewById<TextView>(R.id.tvLineaProducto).text = producto.nomProducto
+            fila.findViewById<TextView>(R.id.tvLineaDetalle).text = context.getString(
+                R.string.pedido_linea_detalle,
+                producto.marca,
+                producto.tallaSeleccionada,
+                producto.color
+            )
+            fila.findViewById<TextView>(R.id.tvLineaCantidad).text = context.getString(
+                R.string.pedido_linea_cantidad_x,
+                producto.cantidad
+            )
             holder.contenedorProductos.addView(fila)
+        }
+
+        if (pedido.clienteCedula.isNotBlank() ||
+            pedido.clienteTelefono.isNotBlank() ||
+            pedido.clienteEmail.isNotBlank()
+        ) {
+            holder.tvDetalleContacto.text = buildString {
+                if (pedido.clienteCedula.isNotBlank()) {
+                    append(context.getString(R.string.pedido_detalle_cedula, pedido.clienteCedula))
+                }
+                if (pedido.clienteTelefono.isNotBlank()) {
+                    if (isNotEmpty()) append("\n")
+                    append(context.getString(R.string.pedido_detalle_telefono, pedido.clienteTelefono))
+                }
+                if (pedido.clienteEmail.isNotBlank()) {
+                    if (isNotEmpty()) append("\n")
+                    append(context.getString(R.string.pedido_detalle_email, pedido.clienteEmail))
+                }
+            }
+            holder.tvDetalleContacto.tag = true
+        } else {
+            holder.tvDetalleContacto.text = ""
+            holder.tvDetalleContacto.tag = false
+        }
+
+        if (pedido.clienteDireccion.isNotBlank()) {
+            holder.tvDetalleDireccion.text = context.getString(
+                R.string.pedido_detalle_direccion, pedido.clienteDireccion
+            )
+            holder.tvDetalleDireccion.tag = true
+        } else {
+            holder.tvDetalleDireccion.text = ""
+            holder.tvDetalleDireccion.tag = false
         }
 
         holder.tvTotalPedido.text = context.getString(
             R.string.moneda_formato,
             String.format("%,.0f", pedido.total)
         )
+
+        if (pedido.metodoPago.isNotBlank()) {
+            val cuentaLinea = if (pedido.numeroCuenta.isNotBlank()) {
+                "\n${context.getString(R.string.pedido_detalle_cuenta, pedido.numeroCuenta)}"
+            } else {
+                ""
+            }
+            val montoLinea = "\n" + context.getString(
+                R.string.pedido_detalle_monto,
+                context.getString(
+                    R.string.moneda_formato,
+                    String.format("%,.0f", pedido.montoPago)
+                )
+            )
+            holder.tvDetallePago.text = context.getString(
+                R.string.pedido_detalle_metodo, pedido.metodoPago
+            ) + cuentaLinea + montoLinea
+            holder.tvDetallePago.tag = true
+        } else {
+            holder.tvDetallePago.text = ""
+            holder.tvDetallePago.tag = false
+        }
 
         val expandido = expandidos[holder.adapterPosition] ?: false
         aplicarEstadoDetalle(holder, expandido)
@@ -108,6 +165,12 @@ class AdaptadorPedidos(
 
     private fun aplicarEstadoDetalle(holder: ViewHolder, expandido: Boolean) {
         holder.contenedorProductos.visibility = if (expandido) View.VISIBLE else View.GONE
+        holder.tvDetalleContacto.visibility =
+            if (expandido && holder.tvDetalleContacto.tag == true) View.VISIBLE else View.GONE
+        holder.tvDetalleDireccion.visibility =
+            if (expandido && holder.tvDetalleDireccion.tag == true) View.VISIBLE else View.GONE
+        holder.tvDetallePago.visibility =
+            if (expandido && holder.tvDetallePago.tag == true) View.VISIBLE else View.GONE
         holder.tvToggleDetalle.text = context.getString(
             if (expandido) R.string.pedido_btn_ocultar_detalle
             else R.string.pedido_btn_ver_detalle

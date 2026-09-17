@@ -19,6 +19,11 @@
             android:title="Mi Carrito" />
 
         <item
+            android:id="@+id/nav_favoritos"
+            android:icon="@drawable/ic_nav_favoritos"
+            android:title="Favoritos" />
+
+        <item
             android:id="@+id/nav_pedidos"
             android:icon="@drawable/ic_nav_pedidos"
             android:title="Mis Pedidos" />

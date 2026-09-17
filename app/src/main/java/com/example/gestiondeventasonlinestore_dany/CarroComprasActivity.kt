@@ -3,6 +3,8 @@ package com.example.gestiondeventasonlinestore_dany
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gestiondeventasonlinestore_dany.databinding.ActivityCarroComprasBinding
@@ -58,14 +60,17 @@ class CarroComprasActivity : AppCompatActivity() {
 
         setupRecyclerView()
         verificarContenidoCarrito()
+        configurarMetodoPago()
 
         binding.btnIrAPagar.setOnClickListener {
-            if (carroCompras.isNotEmpty()) {
+            if (carroCompras.isNotEmpty() && validarMetodoPago()) {
                 val intent = Intent(this, DatosPersonalesActivity::class.java)
 
                 val total = carroCompras.sumOf { it.precio * it.cantidad }
                 intent.putExtra("lista_final_pedido", carroCompras)
                 intent.putExtra("total_pagar", total)
+                intent.putExtra("metodo_pago", metodoPagoSeleccionado()?.first ?: "")
+                intent.putExtra("numero_cuenta", numeroCuentaActual())
 
                 startActivity(intent)
             }
@@ -110,6 +115,51 @@ class CarroComprasActivity : AppCompatActivity() {
             binding.btnIrAPagar.alpha = 1.0f
             binding.btnIrAPagar.text = getString(R.string.carro_ir_pagar)
         }
+    }
+
+    private fun configurarMetodoPago() {
+        binding.chipGroupPago.setOnCheckedStateChangeListener { _, _ ->
+            binding.tilNumeroCuenta.error = null
+            actualizarVisibilidadCampoNumero()
+        }
+        actualizarVisibilidadCampoNumero()
+    }
+
+    private fun metodoPagoSeleccionado(): Pair<String, Boolean>? {
+        return when (binding.chipGroupPago.checkedChipId) {
+            R.id.chipNequi -> Pair(getString(R.string.pago_nequi), true)
+            R.id.chipDaviplata -> Pair(getString(R.string.pago_daviplata), true)
+            R.id.chipEfectivo -> Pair(getString(R.string.pago_efectivo), false)
+            else -> null
+        }
+    }
+
+    private fun actualizarVisibilidadCampoNumero() {
+        val usaNumero = metodoPagoSeleccionado()?.second == true
+        binding.tilNumeroCuenta.visibility = if (usaNumero) View.VISIBLE else View.GONE
+        binding.tvNotaEfectivo.visibility = if (usaNumero) View.GONE else View.VISIBLE
+        if (!usaNumero) {
+            binding.etNumeroCuenta.setText("")
+            binding.tilNumeroCuenta.error = null
+        }
+    }
+
+    private fun numeroCuentaActual(): String = binding.etNumeroCuenta.text.toString().trim()
+
+    private fun validarMetodoPago(): Boolean {
+        val metodo = metodoPagoSeleccionado()
+        if (metodo == null) {
+            Toast.makeText(this, R.string.pago_error_metodo, Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (metodo.second) {
+            val numero = numeroCuentaActual()
+            if (numero.length != 10 || !numero.all { it in '0'..'9' }) {
+                binding.tilNumeroCuenta.error = getString(R.string.pago_error_numero)
+                return false
+            }
+        }
+        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

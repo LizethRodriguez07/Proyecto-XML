@@ -88,14 +88,34 @@ class DatosPersonalesActivity : AppCompatActivity() {
                 finish()
             } else {
                 // 5. Gestión de pedido guardado + SALTO A PANTALLA DE ÉXITO
+                val metodoPago = intent.getStringExtra("metodo_pago").orEmpty()
+                val numeroCuenta = intent.getStringExtra("numero_cuenta").orEmpty()
+                val nombreCompleto = "${cliente.nombre} ${cliente.apellidos}".trim()
+                val direccionCompleta = buildString {
+                    append(cliente.direccion)
+                    if (cliente.municipio.isNotBlank()) {
+                        append(", ").append(cliente.municipio)
+                    }
+                    if (cliente.departamento.isNotBlank()) {
+                        append(", ").append(cliente.departamento)
+                    }
+                }
+                val idPedido = System.currentTimeMillis()
                 RepositorioPedidos.guardar(
                     this,
                     Pedido(
-                        id = System.currentTimeMillis(),
-                        nombreCliente = cliente.nombre,
+                        id = idPedido,
+                        nombreCliente = nombreCompleto,
                         productos = listaCompra,
                         total = totalPagar,
-                        fecha = System.currentTimeMillis()
+                        fecha = idPedido,
+                        metodoPago = metodoPago,
+                        numeroCuenta = numeroCuenta,
+                        montoPago = totalPagar,
+                        clienteCedula = cliente.cedula,
+                        clienteTelefono = cliente.celular,
+                        clienteEmail = cliente.email,
+                        clienteDireccion = direccionCompleta
                     )
                 )
                 Toast.makeText(
@@ -105,9 +125,16 @@ class DatosPersonalesActivity : AppCompatActivity() {
                 ).show()
 
                 val intent = Intent(this, PedidoActivity::class.java)
-                intent.putExtra("nombre_cliente", cliente.nombre)
+                intent.putExtra("nombre_cliente", nombreCompleto)
                 intent.putExtra("lista_final_pedido", listaCompra)
                 intent.putExtra("total_pagar", totalPagar)
+                intent.putExtra("metodo_pago", metodoPago)
+                intent.putExtra("numero_cuenta", numeroCuenta)
+                intent.putExtra("fecha_pedido", idPedido)
+                intent.putExtra("cliente_cedula", cliente.cedula)
+                intent.putExtra("cliente_telefono", cliente.celular)
+                intent.putExtra("cliente_email", cliente.email)
+                intent.putExtra("cliente_direccion", direccionCompleta)
                 startActivity(intent)
 
                 // Cerramos esta pantalla para que no pueda volver al formulario

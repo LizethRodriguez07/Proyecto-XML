@@ -84,6 +84,15 @@
 
     <!-- Mis Pedidos -->
     <string name="mis_pedidos_titulo">MIS PEDIDOS</string>
+
+    <!-- Favoritos -->
+    <string name="fav_chip">FAVORITOS</string>
+    <string name="fav_vacio_titulo">Sin favoritos por ahora</string>
+    <string name="fav_vacio_sub">"Toca el corazón ♥ en tus productos favoritos para guardarlos aquí."</string>
+    <string name="fav_sin_resultados">No hay favoritos que coincidan con tu búsqueda.</string>
+    <string name="toast_favorito_anadido">%1$s agregado a favoritos</string>
+    <string name="toast_favorito_quitado">%1$s eliminado de favoritos</string>
+    <string name="content_desc_corazon">Marcar %1$s como favorito</string>
     <string name="mis_pedidos_vacio_titulo">Sin pedidos por ahora</string>
     <string name="pedido_estado_pendiente">PENDIENTE</string>
     <string name="pedido_estado_enviado">ENVIADO</string>
@@ -101,7 +110,6 @@
     <string name="pedido_total">Total</string>
     <string name="pedido_formato_fecha">dd/MM/yyyy · hh:mm a</string>
     <string name="pedido_linea_producto">%1$s · %2$s</string>
-    <string name="pedido_linea_cantidad">Talla %1$s · x%2$d</string>
     <string name="promo_tag_promo">PROMO</string>
     <string name="promo_tag_servicio">SERVICIO</string>
     <string name="promo_tag_garantia">GARANTÍA</string>
@@ -142,6 +150,7 @@
     <string name="detalle_subtitulo">Elige tu talla y añádelo al carrito</string>
     <string name="detalle_talla_label">Talla:</string>
     <string name="detalle_descripcion_titulo">Descripción ampliada</string>
+    <string name="detalle_color_label">COLOR</string>
     <string name="detalle_descripcion">"Calzado deportivo de la colección %1$s, elaborado en materiales de alta calidad con plantilla acolchada y suela antideslizante. Ideal para uso diario, combina estilo y comodidad para cualquier ocasión."</string>
     <string name="detalle_anadir_carrito">AÑADIR AL CARRITO</string>
     <string name="detalle_global_descripcion">"Elaborado en materiales de alta calidad, con plantilla acolchada y suela antideslizante para tu comodidad y seguridad cada día. Disponible en tallas del 37 al 42."</string>
@@ -165,6 +174,44 @@
     <string name="carro_marca">Marca: %1$s</string>
     <string name="carro_precio_unitario">Precio: $%1$s</string>
     <string name="carro_subtotal">Subtotal: $%1$s</string>
+
+    <!-- Método de pago (carrito) -->
+    <string name="pago_metodo_titulo">Método de pago</string>
+    <string name="pago_metodo_subtitulo">Selecciona cómo prefieres pagar</string>
+    <string name="pago_nequi">NEQUI</string>
+    <string name="pago_daviplata">Daviplata</string>
+    <string name="pago_efectivo">Efectivo contra entrega</string>
+    <string name="pago_numero_label">Número de cuenta (10 dígitos)</string>
+    <string name="pago_error_metodo">Selecciona un método de pago para continuar</string>
+    <string name="pago_error_numero">Ingresa un número de cuenta válido (10 dígitos)</string>
+    <string name="pago_efectivo_nota">Abonarás al recibir el pedido, sin número de cuenta</string>
+    <string name="pedido_detalle_pago">PAGO</string>
+    <string name="pedido_detalle_metodo">Método: %1$s</string>
+    <string name="pedido_detalle_cuenta">N° de cuenta: %1$s</string>
+    <string name="pedido_detalle_monto">Monto: %1$s</string>
+    <string name="pedido_resumen_nota_pago">"Pagarás con %1$s%2$s. Monto a pagar: %3$s."</string>
+    <string name="pedido_resumen_metodo_efectivo">efectivo contra entrega</string>
+
+    <!-- Factura / confirmación formal del pedido -->
+    <string name="factura_titulo">FACTURA</string>
+    <string name="factura_id">N° %1$d</string>
+    <string name="factura_fecha">Fecha: %1$s</string>
+    <string name="factura_cliente_titulo">Datos del cliente</string>
+    <string name="factura_envio_titulo">Datos de envío</string>
+    <string name="factura_productos_titulo">Productos</string>
+    <string name="factura_nombre_label">Nombre</string>
+    <string name="factura_cedula_label">Cédula</string>
+    <string name="factura_celular_label">Celular</string>
+    <string name="factura_email_label">Email</string>
+    <string name="factura_direccion_label">Dirección</string>
+    <string name="factura_total_label">TOTAL A PAGAR</string>
+    <string name="factura_gracias">¡Gracias por tu compra en STORE DANY!</string>
+    <string name="pedido_linea_detalle">Marca: %1$s · Talla: %2$s · Color: %3$s</string>
+    <string name="pedido_linea_cantidad_x">×%1$d</string>
+    <string name="pedido_detalle_cedula">Cédula: %1$s</string>
+    <string name="pedido_detalle_telefono">Celular: %1$s</string>
+    <string name="pedido_detalle_email">Email: %1$s</string>
+    <string name="pedido_detalle_direccion">Dirección: %1$s</string>
 
     <!-- Datos personales -->
     <string name="datos_titulo">Finalizar Compra</string>
@@ -201,6 +248,7 @@
     <string name="pedido_resumen">"Tu pedido de %1$d artículo(s) por un total de %2$s ha sido generado correctamente.\n\nGracias %3$s por comprar en STORE DANY. Un asesor comercial se pondrá en contacto contigo para coordinar el pago y el envío."</string>
     <string name="pedido_resumen_sin_nombre">"Tu pedido de %1$d artículo(s) por un total de %2$s ha sido generado correctamente.\n\nUn asesor comercial se pondrá en contacto contigo para coordinar el pago y el envío."</string>
     <string name="fin_pedido_volver">VOLVER AL INICIO</string>
+    <string name="home_logo_desc">Logo Store Dany</string>
 
     <!-- Accesibilidad -->
     <string name="content_desc_producto">Imagen del producto: %1$s</string>

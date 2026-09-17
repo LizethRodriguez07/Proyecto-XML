@@ -97,6 +97,52 @@
             android:orientation="vertical"
             android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/tvDetalleContacto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_spinner_talla"
+            android:paddingStart="12dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="6dp"
+            android:textColor="@color/texto_principal"
+            android:textSize="12sp"
+            android:lineSpacingExtra="3dp"
+            android:visibility="gone"
+            tools:text="Cédula: 1099999999\nCelular: 3001234567\nEmail: correo@mail.com" />
+
+        <TextView
+            android:id="@+id/tvDetalleDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_spinner_talla"
+            android:paddingStart="12dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="6dp"
+            android:textColor="@color/texto_principal"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="Dirección: Calle 8 # 19-51, Yariguies 1, San Vicente de Chucurí, Santander" />
+
+        <TextView
+            android:id="@+id/tvDetallePago"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_spinner_talla"
+            android:paddingStart="12dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="6dp"
+            android:textColor="@color/texto_principal"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="PAGO: NEQUI · N° 3001234567 · Monto: $300.000" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

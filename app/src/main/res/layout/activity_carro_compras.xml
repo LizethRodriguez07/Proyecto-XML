@@ -79,15 +79,101 @@
                         tools:text="3 artículo(s)" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvTotal"
+<TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:textColor="@color/oro"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/oro_translucido" />
+
+            <!-- Sección: método de pago -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/pago_metodo_titulo"
+                android:textColor="@color/oro"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/pago_metodo_subtitulo"
+                android:textColor="@color/texto_terciario"
+                android:textSize="12sp" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupPago"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:chipSpacingHorizontal="8dp"
+                app:chipSpacingVertical="4dp"
+                app:selectionRequired="false"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipNequi"
+                    style="@style/Style.ChipMarca"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$0"
-                    android:textColor="@color/oro"
-                    android:textSize="26sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:text="@string/pago_nequi" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDaviplata"
+                    style="@style/Style.ChipMarca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pago_daviplata" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipEfectivo"
+                    style="@style/Style.ChipMarca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pago_efectivo" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNumeroCuenta"
+                style="@style/Style.CampoTexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:hint="@string/pago_numero_label"
+                android:visibility="gone"
+                app:startIconDrawable="@drawable/ic_cedula">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNumeroCuenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:textColor="@color/texto_principal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvNotaEfectivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/pago_efectivo_nota"
+                android:textColor="@color/texto_terciario"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnIrAPagar"

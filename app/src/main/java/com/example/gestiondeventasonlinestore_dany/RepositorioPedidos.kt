@@ -59,7 +59,14 @@ object RepositorioPedidos {
                         productos = productos,
                         total = obj.optDouble("total"),
                         fecha = obj.optLong("fecha"),
-                        estado = obj.optString("estado", "PENDIENTE")
+                        estado = obj.optString("estado", "PENDIENTE"),
+                        metodoPago = obj.optString("metodoPago", ""),
+                        numeroCuenta = obj.optString("numeroCuenta", ""),
+                        montoPago = obj.optDouble("montoPago", 0.0),
+                        clienteCedula = obj.optString("clienteCedula", ""),
+                        clienteTelefono = obj.optString("clienteTelefono", ""),
+                        clienteEmail = obj.optString("clienteEmail", ""),
+                        clienteDireccion = obj.optString("clienteDireccion", "")
                     )
                 )
             }
@@ -93,6 +100,13 @@ object RepositorioPedidos {
                     put("total", p.total)
                     put("fecha", p.fecha)
                     put("estado", p.estado)
+                    put("metodoPago", p.metodoPago)
+                    put("numeroCuenta", p.numeroCuenta)
+                    put("montoPago", p.montoPago)
+                    put("clienteCedula", p.clienteCedula)
+                    put("clienteTelefono", p.clienteTelefono)
+                    put("clienteEmail", p.clienteEmail)
+                    put("clienteDireccion", p.clienteDireccion)
                     put("productos", productos)
                 }
             )

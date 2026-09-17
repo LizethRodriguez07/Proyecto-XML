@@ -8,5 +8,12 @@ data class Pedido(
     val productos: ArrayList<Producto>,
     val total: Double,
     val fecha: Long,
-    val estado: String = "PENDIENTE"
+    val estado: String = "PENDIENTE",
+    val metodoPago: String = "",
+    val numeroCuenta: String = "",
+    val montoPago: Double = 0.0,
+    val clienteCedula: String = "",
+    val clienteTelefono: String = "",
+    val clienteEmail: String = "",
+    val clienteDireccion: String = ""
 ) : Serializable
