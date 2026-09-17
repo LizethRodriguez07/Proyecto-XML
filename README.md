@@ -46,29 +46,32 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 
 ### Navegación (flujo de pantallas)
 
-La navegación se realiza mediante `Intent`s explícitos. La pantalla de entrada es `SplashActivity` (con `intent-filter` de LAUNCHER):
+La navegación usa `Intent`s explícitos y comienza en `SplashActivity` (LAUNCHER):
 
 ```
 SplashActivity
-   │  "Ver términos"            Puede cancelar
-   ├────► TerminosCondicionesActivity
-   │  (acepta términos y continúa)
+   │  "Ver términos"
+   ├────► TerminosCondicionesActivity ──► (acepta y continúa)
    ▼
-MainActivity (Inicio + Catálogo + menú lateral / Drawer)
-   │  tocar un producto ──► DetalleProductoActivity ──► (Añadir al carrito, vuelve)
-   │  "Mi Carrito" ──► CarroComprasActivity ──► DatosPersonalesActivity (compra) ──► PedidoActivity ──► (vuelve a MainActivity)
-   │  "Mis Pedidos" ──► MisPedidosActivity (historial, estado y eliminación de pedidos)
-   │  "Mi Perfil" ──► DatosPersonalesActivity (modo perfil: guarda y vuelve)
+MainActivity (Inicio + Catálogo + menú lateral)
+   ├── tocar producto ──► DetalleProductoActivity ──► (añade al carrito, vuelve)
+   ├── "Mi Carrito" ──► CarroComprasActivity ──► DatosPersonalesActivity ──► PedidoActivity ──► (vuelve a MainActivity)
+   ├── "Mis Pedidos" ──► MisPedidosActivity
+   └── "Mi Perfil" ──► DatosPersonalesActivity (modo perfil)
 ```
 
-- `SplashActivity` lanza `TerminosCondicionesActivity` con `registerForActivityResult` y marca la casilla automáticamente si acepta (`RESULT_OK`).
-- `MainActivity` es el catálogo principal; administra la lista de productos, la búsqueda/filtros y el carrito en memoria, y está envuelta en un `DrawerLayout` con `NavigationView`.
-- `CarroComprasActivity` recibe el carrito vía `Intent.getSerializableExtra` (con manejo compatible para Android 13+) y lo devuelve actualizado.
-- `DetalleProductoActivity` recibe un `Producto`, muestra su información ampliada con selector de talla y devuelve con `RESULT_OK` el producto con la talla elegida; `MainActivity` lo añade (o fusiona) al carrito.
-- `MisPedidosActivity` es accesible desde el menú lateral y muestra el historial de pedidos persistente, permite ampliar el detalle de cada tarjeta, avanzar su estado (Pendiente→Enviado→Entregado) y eliminarlo con confirmación (o muestra el estado vacío si aún no hay compras).
-- `DatosPersonalesActivity` valida los campos del cliente (cédula y celular de 10 dígitos, email con formato), selecciona departamento/municipio en cascada y redirige a la confirmación; en modo perfil ("Mi Perfil") guarda los datos y regresa.
-- `PedidoActivity` limpia la pila de actividades (`FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK`) al regresar.
-- El perfil del cliente se persiste con `SharedPreferences` (JSON) mediante `RepositorioPerfil` y autocompleta los formularios futuros.
+| Pantalla | Rol |
+| --- | --- |
+| `SplashActivity` | Entrada; abre los términos y marca la casilla al aceptar (`RESULT_OK`). |
+| `TerminosCondicionesActivity` | Documento de términos con Aceptar/Cancelar. |
+| `MainActivity` | Catálogo: productos, búsqueda/filtros y carrito en memoria; envuelta en `DrawerLayout`. |
+| `DetalleProductoActivity` | Detalle con selectores de talla/color; devuelve el producto elegido (`RESULT_OK`). |
+| `CarroComprasActivity` | Recibe el carrito por extras (compatible Android 13+) y lo devuelve actualizado. |
+| `DatosPersonalesActivity` | Valida datos y ubicación; continúa la compra o guarda el perfil y regresa. |
+| `PedidoActivity` | Confirmación del pedido; limpia la pila de actividades (`CLEAR_TASK`) al volver. |
+| `MisPedidosActivity` | Historial: detalle ampliable, avance de estado y eliminación. |
+
+El perfil del cliente y el historial de pedidos se persisten con `SharedPreferences` (JSON).
 
 ### Modelo
 
