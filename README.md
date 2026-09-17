@@ -160,26 +160,7 @@ El proyecto usa un patrón **MVC-ligero**: las `Activity` actúan como controlad
 
 ## Roadmap
 
-**Hecho**
-- [x] Gestión de cantidades y tallas por producto desde el carrito (fusión de líneas por talla).
-- [x] Rediseño del menú de navegación con cajón lateral (Navigation Drawer) y vistas separadas de Inicio y Catálogo.
-- [x] Búsqueda y filtros por marca en el catálogo, ampliados con el modo **Favoritos**.
-- [x] Rediseño del procedimiento de Términos y Condiciones (pantalla dedicada con 10 cláusulas y aceptación obligatoria).
-- [x] Perfil de cliente persistente (SharedPreferences) con autocompletado y selector de departamento/municipio en cascada con validaciones.
-- [x] Pulido del catálogo y del carrito (tarjetas aireadas), cabecera hero con contador de unidades y carrusel de promociones; incorporación del producto Reebok Classic con foto real (Wikimedia Commons).
-- [x] Diseño del estado vacío de Mis Pedidos y persistencia de la selección de ubicación al rotar el formulario.
-- [x] Historial de pedidos persistente (SharedPreferences/JSON) mostrado en Mis Pedidos con fecha, productos, total y estado.
-- [x] Máscara de escritura para el celular (`300-000-0000`) y teclado `phone` para cédula y celular en el formulario.
-- [x] Pantalla de detalle de producto (imagen grande, talla, descripción ampliada y añadir al carrito desde el detalle).
-- [x] Mis Pedidos: detalle ampliable por tarjeta, avance de estado (Pendiente → Enviado → Entregado) persistente y eliminación con confirmación.
-- [x] Adopción de ViewBinding en toda la app y limpieza del código muerto de la plantilla login (`data/`, `catalogo.xml`).
-- [x] Animación sutil de entrada/aparición (fade + deslizamiento escalonado) en el catálogo y el carrusel de promociones.
-- [x] Ajuste visual de las tarjetas del catálogo (fila talla/precio/botón con ancho estable y descripción a una línea) y **chips de color** con punto indicador en el detalle de producto.
-
 **Corto plazo**
-- [x] Sección de **método de pago en el carrito** (elegido en el propio carrito): NEQUI, Daviplata y Efectivo contra entrega, con número de cuenta (validado por método) y monto a pagar mostrado; los datos de pago se guardan en el pedido.
-- [x] **Factura formal** al confirmar el pedido (cliente, envío, líneas por marca/talla/color/cantidad, total y método de pago) y **detalle ampliable formal** en Mis Pedidos con contacto y dirección del cliente.
-- [x] **Sistema de favoritos** persistente (SharedPreferences): corazón en las tarjetas del catálogo y en el detalle de producto, filtro "FAVORITOS" en el catálogo y acceso directo desde el menú lateral. El filtro por talla se descarta por no ser necesario.
 - [ ] Enviar el resumen del pedido (productos + datos del cliente) por **WhatsApp** a un asesor comercial.
 - [ ] Persistencia del catálogo con **Room** (SQLite); el perfil del cliente y el historial de pedidos ya usan SharedPreferences.
 
