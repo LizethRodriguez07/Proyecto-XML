@@ -10,22 +10,24 @@ El flujo de la app guía al usuario desde un pantalla de bienvenida con término
 
 ## Características principales
 
-- **Pantalla de bienvenida (Splash) rediseñada:** logo con animación de entrada, tarjeta de bienvenida con mensaje de la propietaria, enlace para consultar los términos y condiciones completos y casilla de aceptación obligatoria (el botón "INICIO STORE DANY" solo se activa al aceptar).
-- **Términos y Condiciones:** pantalla dedicada (`TerminosCondicionesActivity`) con aviso formal de aceptación e 10 cláusulas numeradas en tarjetas (aceptación, servicio, asesoría, catálogo, proceso de compra, precios, envíos, datos personales conforme a la Ley 1581 de 2012, contacto y respaldo/garantía), barra de herramientas con flecha atrás y botones Aceptar/Cancelar. Al regresar a la pantalla de bienvenida, la casilla se marca automáticamente si se aceptó.
-- **Catálogo de productos:** lista de calzado (Nike Air Trainer, Adidas Forum, Puma Street, New Balance 1300 y Reebok Classic) con imagen, marca, descripción, precio en pesos colombianos y selector de tallas (37–42). El Reebok Classic usa una foto real del modelo (imagen libre desde Wikimedia Commons).
-- **Detalle de producto (pantalla dedicada):** al tocar un producto del catálogo se abre `DetalleProductoActivity` con imagen grande, marca, nombre, precio, selector de talla y descripción ampliada; el botón "Añadir al carrito" suma el producto a la talla elegida (y fusiona líneas repetidas).
-- **Cabecera destacada del catálogo:** tarjeta hero con monograma de la marca, título/subtítulo y contador de unidades en el carrito que se muestra dinámicamente al agregar productos.
-- **Búsqueda y filtros por marca:** campo de búsqueda por nombre y chips (Todos, Nike, Adidas, Puma, New Balance, Reebok) que filtran el catálogo en tiempo real, con aviso "sin resultados".
-- **Menú lateral (Navigation Drawer):** acceso al catálogo, carrito, pedidos, datos personales, ayuda y acerca de; con cabecera de la tienda.
-- **Carrito de compras completo:** cada producto muestra imagen, marca, talla editable, precio unitario, control de cantidad (−/+) y subtotal por línea, con contador en tiempo real, eliminación de ítems y total a pagar calculado automáticamente.
-- **Gestión de tallas y cantidades:** cambiar la talla desde el carrito y fusiona automáticamente líneas del mismo producto y talla.
-- **Mis pedidos:** historial persistente de pedidos (SharedPreferences/JSON): cada compra confirmada se guarda automáticamente y se lista con fecha y hora, nombre del cliente, total y estado (Pendiente → Enviado → Entregado). Cada tarjeta tiene detalle ampliable con datos formales del cliente (cédula, celular, email), dirección de envío, líneas de producto organizadas por marca, talla, color y cantidad, y el resumen del pago; botón "Avanzar estado" para mover entre fases y botón "Eliminar" con confirmación; si aún no hay compras muestra el estado vacío diseñado.
-- **Formulario de datos personales:** captura de nombre, apellidos, cédula, celular, email, departamento y municipio (en cascada) y dirección detallada, con validaciones en línea (cédula y celular de 10 dígitos, email con formato válido y ubicación obligatoria). La cédula usa teclado numérico de 10 dígitos y el celular una **máscara automática de escritura `300-000-0000`** (teclado `phone`), con guiones insertados mientras se digita y validación sin espacios. El formulario se organiza en tarjetas por secciones (datos del cliente y dirección de envío), con campos en filas de dos columnas, iconos identificativos en cada campo y selectores desplegables para departamento y municipio. La selección de departamento/municipio se conserva al rotar la pantalla.
-- **Perfil de cliente persistente:** los datos ingresados se guardan localmente (SharedPreferences) y autocompletan los formularios futuros; el ítem "Mi Perfil" del menú permite crearlos o editarlos antes de comprar.
-- **Confirmación de pedido:** factura presentada al cliente (pantalla de éxito) con N° de factura, fecha, datos del cliente (nombre, cédula, celular, email), dirección de envío, desglose de productos (marca, talla, color, cantidad, precio), total a pagar y nota del método de pago elegido en el carrito (NEQUI, Daviplata o Efectivo contra entrega); incluye botón para volver al inicio (reinicia la navegación y limpia el carrito).
-- **Ayuda y asesoría (pantalla dedicada):** canales de atención directa con acciones funcionales (llamada telefónica vía `tel:` y WhatsApp vía `wa.me`), horario de atención con indicador dinámico "Abierto/Cerrado ahora" según día y hora, punto de venta físico y preguntas frecuentes.
-- **Acerca de (pantalla dedicada):** hero de bienvenida de la propietaria con monograma de la marca, tarjetas de Misión y Visión, ubicación del negocio y versión.
-- **Diseño premium:** interfaz oscura con acentos dorados, fondos negros, tarjetas Material con bordes redondeados (ítems de catálogo y carrito con imagen destacada, divisor y fila Talla/Precio), menú lateral con icono de hamburguesa dorado y de mayor grosor, y componentes Material Components (MaterialButton, MaterialCardView, TextInputLayout, MaterialCheckBox, MaterialToolbar).
+**Compra**
+- **Bienvenida:** splash con mensaje de la propietaria y términos y condiciones de aceptación obligatoria.
+- **Catálogo:** cinco modelos (Nike, Adidas, Puma, New Balance y Reebok) con búsqueda, filtros por marca y modo Favoritos.
+- **Detalle:** imagen grande, selectores de talla y color, descripción ampliada y añadir al carrito.
+- **Carrito:** cantidades (−/+), talla editable, subtotales, total y método de pago (NEQUI, Daviplata o Efectivo contra entrega).
+- **Factura:** al confirmar el pedido se genera con datos del cliente, envío, líneas por producto y resumen del pago.
+
+**Cuenta**
+- **Mi Perfil:** datos del cliente persistentes con autocompletado, validaciones y selector de departamento/municipio en cascada.
+- **Mis Pedidos:** historial persistente con detalle ampliable, avance de estado (Pendiente → Enviado → Entregado) y eliminación con confirmación.
+- **Favoritos:** corazón en catálogo y detalle, con filtro propio y acceso desde el menú lateral.
+
+**Información**
+- **Ayuda:** llamada y WhatsApp directos, horario con indicador Abierto/Cerrado, punto de venta y preguntas frecuentes.
+- **Acerca de:** misión, visión y ubicación del negocio.
+
+**Diseño**
+- Interfaz oscura con acentos dorados, tarjetas Material, animación escalonada en el catálogo e iconografía dorada.
 
 ## Stack tecnológico
 
